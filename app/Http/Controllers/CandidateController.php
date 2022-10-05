@@ -71,8 +71,6 @@ class CandidateController extends Controller
         $departments = attributes::where('attribute', 'departments')->where('is_active', 1)->get();
         $designations = attributes::where('attribute', 'designations')->where('is_active', 1)->get();
         $projects = attributes::where('attribute', 'project')->where('is_active', 1)->get();
-        // $departments = DB::table('departments')->select('name')->get();
-        // $designations = DB::table('designations')->select('name')->get();
         return view('candidate.candidate_form')->with('title', "Candidate Registration")->with(compact('departments', 'designations', 'projects'));
     }
 
@@ -408,14 +406,14 @@ class CandidateController extends Controller
                   ";
                 }
                 $mystatus .= " " . $myclass . "
-                                   
+
                                  ";
                 $userresponse .= " " . $value->status . "
                <input type='hidden' name='emp_id' id='emp_id' value='" . $value->id . "'>
-                                   
+
                                  ";
                 $resume_download .= "public/uploads/resume/" . $value->resume_upload . "
-                                   
+
                                  ";
 
 
@@ -442,7 +440,7 @@ class CandidateController extends Controller
                     <button><span><i class='fa fa-check' aria-hidden='true'></i></span>" . $user->eduaction . "</button><span>Your requirement: High school or equivalent</span>
 
                     <div class='teaching'>
-                        
+
                         <h3>How many years of Teaching experience do you have?</h3>
                         <div class='tag'>
                         <span><i class='fa fa-times' aria-hidden='true'></i>" . $user->experience . "</span><small>Your requirement: 1 year</small>
@@ -455,7 +453,7 @@ class CandidateController extends Controller
                         <span><i class='fa fa-check' aria-hidden='true'></i>No</span><small>Your requirement: 1 year</small>
                     </div>
                     </div>
-                    
+
 
                     <div class='teaching'>
                         <h3>Do you have a valid CPR Certification?</h3>
@@ -1266,14 +1264,7 @@ class CandidateController extends Controller
 
     public function job_applied_interested(Request $request)
     {
-
-        // if (isset($_POST['job_get'])) {
-        //     $job_get_url = "?action=" . $_POST['job_get'];
-
-        // } else {
-        //     $job_get_url = "";
-        // }
-        $job_post_id = Crypt::decrypt($_POST['job_post_id']);
+       $job_post_id = Crypt::decrypt($_POST['job_post_id']);
         $job_inquiry = job_inquiry::find($request->job_id);
         $job_inquiry->is_interested = $request->status;
         $job_inquiry->save();
@@ -1281,7 +1272,7 @@ class CandidateController extends Controller
 
         if ($job_inquiry) {
             if ($job_inquiry->is_interested == 1) {
-                $message = "Hi " . $job_inquiry->first_name . ", Thank you very much for offering me the position of " . $job_inquiry->job_title . " at " . $job_inquiry->company_name . ".I have decided to accept the position, as it is the right fit for me at this time. I truly appreciate the offer and your consideration. 
+                $message = "Hi " . $job_inquiry->first_name . ", Thank you very much for offering me the position of " . $job_inquiry->job_title . " at " . $job_inquiry->company_name . ".I have decided to accept the position, as it is the right fit for me at this time. I truly appreciate the offer and your consideration.
               To make sure our emails reach your inbox, please add info@the-education-team.com to your safe list or address book.
                 ";
                 $details = ['message' => $message,];
@@ -1294,114 +1285,11 @@ class CandidateController extends Controller
             $resp['status'] = 1;
             $resp['message'] = "Interested Record has Been Updated";
 
-            if (isset($_POST['action'])) {
-
-                //$resp['location'] = route('job_display');
-            } else {
-
-                //$resp['location'] = route('candidates_display', $_POST['job_post_id'] . $job_get_url);
-            }
-
             return json_encode($resp);
         } else {
             return redirect()->back()->with('error', 'Due To Error Record Has Been Not Interested');
         }
     }
-
-    // public function job_applied_interested(Request $request)
-    //     {
-    //    if (isset($_POST['job_get'])) {
-    //         $job_get_url = "?action=" . $_POST['job_get'];
-    //     } else {
-    //         $job_get_url = "";
-    //     }
-    //     $job_post_id = Crypt::decrypt($_POST['job_post_id']);
-    //     //dd($request->status);
-    //     $job_inquiry = job_inquiry::find($request->job_id);
-    //     $job_inquiry->is_interested = $request->status;
-    //     $job_inquiry->save();
-    //     $jobs = jobs::find($job_post_id);
-    //     if ($job_inquiry) {
-    //         if ($job_inquiry->is_interested == 1) {
-    //             $email_message = 'Hi ' . $job_inquiry->first_name . ' ' . $job_inquiry->last_name . ', Thank you very much for offering me the position of ' . $jobs->job_title . ' at ' . $jobs->company_name . '.I have decided to accept the position, as it is the right fit for me at this time. I truly appreciate the offer and your consideration.';
-    //     }else{
-    //             $email_message = 'Hi ' . $job_inquiry->first_name . ' ' . $job_inquiry->last_name . ', Thank you very much for offering me the position of ' . $jobs->job_title . ' at ' . $jobs->company_name . ' Unfortunately, I have decided not to accept the position, as it is not the right fit for me at this time. I truly appreciate the offer and your consideration.';
-    //         }
-    //         // logo
-    //         $logo = 'web/images/logo.jpg';
-    //         $config = config::find(2);
-    //         // User
-    //         $user_body = "  <html>
-    //                             <head>
-    //                                 <title>Order Confirmation</title>
-    //                             </head>
-    //                             <style>
-    //                                 table tr:first-child > td > center{
-    //                                     /*background: #ff0000;*/
-    //                                 }
-    //                             </style>
-    //                             <body>
-    //                             <table style='background:#000; border:#000 1px solid;' width='622' cellspacing='0' cellpadding='0' border='0'
-    //                                 align='center'>
-    //                                 <tbody>
-    //                                 <tr class='first'>
-    //                                     <td>
-    //                                         <center>
-    //                                             <img src='" . asset($logo) . "' style='padding: 15px;width: 150px;'>
-    //                                         </center>
-    //                                     </td>
-    //                                 </tr>
-    //                                 <tr>
-    //                                     <td height='1'></td>
-    //                                 </tr>
-    //                                 <tr>
-    //                                     <td style='font-family:Arial, Helvetica, sans-serif;' bgcolor='#f5f9f6'>
-    //                                         <table width='622' cellspacing='0' cellpadding='0' border='0' align='center'>
-    //                                             <tbody>
-    //                                             <tr>
-    //                                                 <td style='font-size:13px; line-height:22px; padding:0 15px; margin-bottom:15px;'>
-    //                                                     " . $email_message . "
-    //                                                 </td>
-    //                                             </tr>
-    //                                             <tr>
-    //                                                 <td style='font-size:13px; line-height:22px; padding:0 15px; margin-bottom:15px; padding-bottom:10px;'>
-    //                                                     To make sure our emails reach your inbox, please add <a
-    //                                                         href='mailto:" . $config['value'] . "'>" . $config['value'] . "</a> to your safe
-    //                                                     list or address book.<br>
-    //                                                     <!-- Please note that there will be a delivery charge for re-sending returned items if an incorrect address has been provided. <br /> -->
-    //                                                 </td>
-    //                                             </tr>
-    //                                             </tbody>
-    //                                         </table>
-    //                                     </td>
-    //                                 </tr>
-    //                                 </tbody>
-    //                             </table>
-    //                             </body>
-    //                         </html>";
-    //         $headers = "MIME-Version: 1.0" . "\r\n";
-    //         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    //         $headers .= 'From: <no-reply@the-educate-team.com>' . "\r\n";
-    //         $subject = 'The Educate Team Interest job Inquiry';
-    //         // dd($user_body);
-    //         // User email
-    //         $user_email = $job_inquiry->email;
-    //         // $user_email = 'digitonics.developer.454@gmail.com';
-    //         // dd($user_email,$subject,$user_body);
-    //         $UserMailSent = mail($user_email, $subject, $user_body, $headers);
-    //         // dd($UserMailSent);
-    //         $resp['status'] = 1;
-    //         $resp['message'] = "Interested Record has been updated";
-    //         if (isset($_POST['action'])) {
-    //             $resp['location'] = route('job_display');
-    //         } else {
-    //             $resp['location'] = route('candidates_display', $_POST['job_post_id'] . $job_get_url);
-    //         }
-    //         return json_encode($resp);
-    //     } else {
-    //         return redirect()->back()->with('error', 'due to error record has been not interested');
-    //     }
-    //  }
 
     public function resume_upload_submit(Request $request)
     {
@@ -1558,13 +1446,13 @@ class CandidateController extends Controller
                 $options .= '
                                <tr>
                                 <td>
- 
+
                                    <h4>' . $job->first_name . ' ' . $job->last_name . '</h4>
                                     <p>' . $job->email . '</p>
                                     <p>' . $job->city . '<br>Created:' . $job_date . '</p>
                                 </td>
                                  <td class="job-view"><a href="tel:"' . $job->phonenumber . '">' . $job->phonenumber . '</a></td><td>
-                                
+
                               <a class="btn btn-primary" href="' . $set_interview . '" target="_blank">
                                 Set Up Interview
                               </td>
@@ -1574,8 +1462,8 @@ class CandidateController extends Controller
                                    <td>
                                     <div class="dropdown open-job">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            
-                                            <span class="' . $color . '"></span> ' . $job->status . ' 
+
+                                            <span class="' . $color . '"></span> ' . $job->status . '
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a class="dropdown-item status_dropdown_candidate" data-id="Awaiting Review" data-job_id="' . $job->id . '" data-job_post_id="' . Crypt::encrypt($job->job_id) . '" data-user_id="' . Auth::user()->id . '" href="javascript:void(0);">
@@ -1594,14 +1482,14 @@ class CandidateController extends Controller
                                                 <span class="green"></span>Hired
                                             </a>
                                         </div>
-                                          
+
                                     </div>
                                 </td>
                                 <td>
-                              
+
                               <div class="noti-count">
                               <i class="fa fa-comments"><strong> ' . $messages_count . '</strong></i>
-                                  
+
                               </div>
                                <a class="btn btn-primary" href="' . $user_chat_now . '" target="_blank">Contact this Person </a>
 
@@ -1841,22 +1729,22 @@ class CandidateController extends Controller
                         $logo = asset('images/default2-1-1.jpg');
                     }
 
-                    
+
 
                     $msg_body = $msg_body ."<div class='message-box-holder'>";
                             $msg_body = $msg_body ."<div class='message-box'>";
-                            
+
                             if ($value->has_file == 0) {
-                            
+
                                 $msg_body = $msg_body . '<p class="m-0">' . $value->message . '</p>';
-                            
+
                             }
-                            
+
                             $msg_body = $msg_body ."</div>";
                         $msg_body = $msg_body ."</div>";
 
 
-                
+
                 }else{
 
                     $name = $value->sender->name;
@@ -1898,7 +1786,7 @@ class CandidateController extends Controller
         $resp['thread_messages'] = $thread_messages;
 
         $resp['msg_body'] = $msg_body;
-        
+
         $resp['user_detail'] = $user_detail;
 
         $resp['chat_box_id'] = isset($get_chat_box) ? $get_chat_box : $get_old_data;
@@ -1920,7 +1808,7 @@ class CandidateController extends Controller
         chat_box::where('id',$get_chat_box)->delete();
 
         $resp['success'] = "Tab Close";
-        
+
         return json_encode($resp);
     }
 
@@ -2019,5 +1907,5 @@ class CandidateController extends Controller
         $thread_messages->save();
         return response()->json(['success' => true]);
     }
-    
+
 }
