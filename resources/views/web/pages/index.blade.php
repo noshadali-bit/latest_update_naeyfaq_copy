@@ -93,7 +93,6 @@
                 <p>Alhamdulillah, after a hiatus of several months, the website of our organization has been renovated according to the modem requirements and has started working again. All material of Naey Ufaq, Anchal, and hijab (2007 to November 2021) has been uploaded.</p>
                 <p>Now Pakistani readers can also read our magazines on the internet for free. Especially Pakistani women and men living abroad were having difficulty in reading our magazines Naey Ufaq, Anchal, Hijab, now You can easily study them.</p> <a class="cta-btn" href="{{route('about_us')}}">REad More</a> </div>
 
-
           <div class="col-lg-4 position-relative abt-cntr-img pl-0"> <img src="{{asset('web/img/abt.png')}}" class="img-fluid" alt=""> </div>
 
           <div class="col-lg-4 content my-auto">
@@ -105,8 +104,6 @@
                 <a class="cta-btn" href="{{route('about_us')}}">REad More</a>
             </div>
           </div>
-
-
 
         </div>
       </div>
@@ -147,16 +144,14 @@ $a = 0;
 
               @isset($product) @foreach($product as $pro) @if($pro->cat_id == $cat->id)
 
-                <div class="swiper-slide"> <a @if($pro->price == 0) onclick="readBook({{$pro->id}})" @else href="{{route('add_to_cart',Crypt::encrypt($pro->id))}}" @endif > <img src="{{asset('/uploads/pages/'.$pro->file)}}" class="pro_img"> </a>
+                <div class="swiper-slide"> <a href="{{route('view_books',Crypt::encrypt($pro->id))}}" > <img src="{{asset('/uploads/pages/'.$pro->file)}}" class="pro_img"> </a>
                   <div class="pro-name">
                       <h3>{{$pro->name}}</h3>
                       <h3>{{$pro->name_urdu}} </h3>
                   </div>
                   <div class="tags">
-                      <!-- <p>RS : <span>{{$pro->price}}</span></p> -->
                   <p><span>{{$pro->month}} {{$pro->year}}</span></p>
                   </div>
-                  {{-- <a @if($pro->price == 0) onclick="readBook({{$pro->id}})" @else href="{{route('add_to_cart',Crypt::encrypt($pro->id))}}" @endif class="cta-btn">@if($pro->price == 0) Read More @else Add To Bucket List @endif </a> --}}
                   <a href="{{route('view_books',Crypt::encrypt($pro->id))}}" class="cta-btn"> Read More </a>
                 </div>
                 @endif @endforeach @endisset

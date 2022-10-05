@@ -58,17 +58,35 @@
     <section id="novel" class="novel-section-min pt-0">
       <div class="container">
         <!-- Slider main container -->
+        
+        @isset($categories) @foreach($categories as $cat)
+        @if($cat->id == 8)
+        <!-- Slider main container -->
         <div class="novle-slider swiper">
-          <div class="product-title"> <img src="{{asset('web/img/logo.png')}}">
-            <h3>Novel</h3> </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="product-title title-left">
+              <img src='{{asset("/uploads/pages/".$cat->logo)}}' class="cat_logo">
+            <h3>{{$cat->name}}</h3>
+            </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="product-title title-right">
+              <img src='{{asset("/uploads/pages/".$cat->logo)}}' class="cat_logo">
+            <h3>{{$cat->name_urdu}}</h3>
+            </div>
+              </div>
+          </div>
           <!-- Additional required wrapper -->
           <div class="swiper-wrapper novel-section">
-            <div class="swiper-slide"><img src="{{asset('web/img/novel-1.jpg')}}"></div>
-            <div class="swiper-slide"><img src="{{asset('web/img/novel-2.jpg')}}"></div>
-            <div class="swiper-slide"><img src="{{asset('web/img/novel-3.jpg')}}"></div>
-            <div class="swiper-slide"><img src="{{asset('web/img/novel-1.jpg')}}"></div>
-            <div class="swiper-slide"><img src="{{asset('web/img/novel-2.jpg')}}"></div>
-            <div class="swiper-slide"><img src="{{asset('web/img/novel-3.jpg')}}"></div>
+          @isset($novel) @foreach($novel as $pro) @if($pro->cat_id == $cat->id)
+
+            <div class="swiper-slide">
+              <a href="{{route('view_books',Crypt::encrypt($pro->id))}}"> <img src="{{asset('/uploads/pages/'.$pro->file)}}"> </a>
+            </div>
+
+          @endif @endforeach @endisset
+
           </div>
           <!-- If we need navigation buttons -->
           <div class="slider-arrows slider-arrows-novel">
@@ -76,6 +94,8 @@
             <div class="swiper-button-next"><i class="fa fa-angle-right" aria-hidden="true"></i> </div>
           </div>
         </div>
+        @endif
+        @endforeach @endisset
       </div>
     </section>
   </main>

@@ -10,7 +10,6 @@
 
 
 
-
 <!-- START: Page Vendor JS-->
 @auth
 <script src="{{asset('vendors/raphael/raphael.min.js')}}"></script>
@@ -117,3 +116,22 @@
 <!-- START: Page JS-->
 <script src="{{asset('js/home.script.js')}}"></script>
 <!-- END: Page JS-->
+
+<script src="{{ asset('vendors/x-editable/js/bootstrap-editable.min.js') }}"></script>
+<script src="{{ asset('js/xeditable.script.js') }}"></script>
+
+<script src="{{ asset('vendors/datatable/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('vendors/datatable/js/dataTables.bootstrap4.min.js') }}"></script>
+
+<script src="{{ asset('vendors/datatable/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('vendors/datatable/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('vendors/datatable/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('vendors/datatable/buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('vendors/datatable/buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendors/datatable/buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('vendors/datatable/buttons/js/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('vendors/datatable/buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('vendors/datatable/buttons/js/buttons.print.min.js') }}"></script>
+
+<script src="{{ asset('js/datatable.script.js') }}"></script>
+

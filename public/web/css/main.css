@@ -987,19 +987,15 @@ section#about .container-fluid {
     padding: 0 30px;
 }
 .about .content a.cta-btn {
-    background: var(--color-primary);
-    padding: 15px 30px;
-    border-radius: 4px;
-    color: #fff;
-    border: 1px solid transparent;
-    display: flex;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 14px;
-    justify-content: center;
-    align-items: center;
-    margin: 80px auto 0 !important;
-    width: 86%;
+  background: var(--color-primary);
+  padding: 15px 40px;
+  border-radius: 4px;
+  color: #fff;
+  border: 1px solid transparent;
+  margin-top: 20px !important;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 .full-image-secion {
   padding-top: 0;
@@ -1754,11 +1750,9 @@ section#about .container-fluid {
   left: 20px;
 }
 .about.product-detail-page .content h3 {
-    text-transform: inherit;
-    font-size: 30px;
-    font-weight: 500;
-    display: flex;
-    justify-content: space-between;
+  text-transform: inherit;
+  font-size: 30px;
+  font-weight: 500;
 }
 .product-detail-page {
   padding-bottom: 30px;
@@ -1919,34 +1913,3 @@ section.checkout-sec {
   color: #f05455 !important;
 }
 /* END: CHECKOUT PAGE CSS */
-
-
-
-
-/*Abdullah CSS*/
-
-
-.my-auto h3 b {
-    margin-right: 50px;
-}
-
-
-p.two {
-    margin-bottom: 5px;
-}
-
-.inner-space {
-    max-width: 350px;
-    background-color: #f9f9f9;
-}
-
-.inner-space {
-    max-width: 350px;
-    background-color: #f9f9f9;
-    padding: 32px 10px;
-    max-height: 310px;
-    box-shadow: inset 0 0 10px #ddd;
-    border: 1px solid #ccc;
-}
-
-/*Abdullah CSS END*/

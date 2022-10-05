@@ -10,7 +10,7 @@
             <div class="col-lg-4 content order-last my-auto">
               <div class="inner-space">
                 
-                <h3><b>Book Title</b><!-- {{$val->post_title}} -->{{$val->post_title_urdu}}</h3>
+                <h3><b>{{$val->post_title}}</b>{{$val->post_title_urdu}}</h3>
                 <!-- <h3><b>Urdu Title</b></h3> -->
                 <p class="two"><b>Auther</b></p>
                 <p>{{$val->writer_name}}</p>

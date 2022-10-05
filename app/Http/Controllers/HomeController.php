@@ -40,106 +40,69 @@ use Illuminate\Support\Str;
 class HomeController extends Controller
 
 {
-
     /**
-
      * Create a new controller instance.
-
      *
-
      * @return void
-
      */
-
     public function __construct()
     {
     }
 
     /**
-
      * Show the application dashboard.
-
      *
-
      * @return \Illuminate\Contracts\Support\Renderable
-
      */
 
     public function index()
     {
-
         $user = Auth::user();
-
         if ($user->role_id != 1) {
-
             return redirect()->route("welcome");
         }
-
         return view('welcome');
     }
 
     public function steps()
     {
-
         if (Auth::user()->role_id == 1) {
-
             $projects = attributes::where('attribute', 'project')->where('is_active', 1)->get();
-
             return view('steps')->with(compact('projects'));
         } else {
-
             return redirect()->back()->with('error', 'No Page Found');
         }
     }
 
     public function switch_project($project_id)
     {
-
         if (Auth::user()->role_id == 1) {
-
             $project = attributes::where('id', $project_id)->where('is_active', 1)->first();
-
             $data['project_id'] = $project_id;
-
             Session::put("project_id", $project_id);
-
             Helper::activity_log("login", $data);
-
             return redirect()->route('user_profile')->with('message', "Welcome to " . $project->name);
         } else {
-
             return redirect()->back()->with('error', 'No Page Found');
         }
     }
 
     public function user_profile()
     {
-
         $user = Auth::user();
-
         if ($user->role_id != 1) {
-
             return redirect()->route("welcome");
         }
-
-
 
         return view('user-profile')->with('title', "Home Page")->with(compact('user'));
     }
 
     public function inquiry_manage()
     {
-
         $user = Auth::user();
-
         if ($user->role_id != 1) {
-
             return redirect()->route("welcome");
         }
-
-
-
-
 
         $inquiry = inquiry::where("is_active", 1)->where('is_deleted', 0)->get();
 
@@ -148,11 +111,7 @@ class HomeController extends Controller
 
     public function user_rights()
     {
-
         $user = Auth::user();
-
-        //dd(Session::get("project_id" ));
-
         $roles = attributes::where("is_active", 1)->where('is_deleted', 0)->get();
 
         return view('user-rights')->with('title', "User Rights")->with(compact('user', 'roles'));
@@ -160,7 +119,6 @@ class HomeController extends Controller
 
     public function user_infoupdate(Request $request)
     {
-        // dd($_POST);
         $user = User::find(Auth::user()->id);
         $user->name = $request->name;
         $user->personal_email = isset($request->personal_email) ? $request->personal_email : '';
@@ -266,18 +224,15 @@ class HomeController extends Controller
             $user->is_active = $request->status;
         }
 
-        // dd($user);
         $user->save();
 
         return redirect()->back()->with('message', 'Information updated successfully');
     }
+    
+    public function add_category(Request $request){
 
-    /* Neaufaq controller start */
-    public function add_category(Request $request)
-    {
-
-        if (isset($request->edit_id)) {
-            if (request()->file('file') && request()->file('logo')) {
+        if(isset($request->edit_id)){
+            if(request()->file('file') && request()->file('logo')){
 
                 $fileName = null;
                 $file = request()->file('file');
@@ -286,27 +241,26 @@ class HomeController extends Controller
                 $logo = request()->file('logo');
                 $logo->move('./public/uploads/pages/', $file->getClientOriginalName());
 
-                $result = category::where('id', $request->edit_id)->update([
-                    'name' => $request->name, 'name_urdu' => $request->name_urdu, 'description' => $request->desc, 'file' => $file->getClientOriginalName(),
-                    'logo' => $logo->getClientOriginalName(), 'is_active' => $request->status
-                ]);
-            } else if (request()->file('file')) {
+                $result = category::where('id',$request->edit_id)->update(['name'=>$request->name, 'name_urdu'=>$request->name_urdu, 'description'=>$request->desc, 'file' => $file->getClientOriginalName(),
+                'logo' => $logo->getClientOriginalName(), 'is_active'=>$request->status]);
+
+            }else if(request()->file('file')){
                 $fileName = null;
                 $file = request()->file('file');
                 $file->move('./public/uploads/pages/', $file->getClientOriginalName());
 
-                $result = category::where('id', $request->edit_id)->update(['name' => $request->name, 'name_urdu' => $request->name_urdu, 'description' => $request->desc, 'file' => $file->getClientOriginalName(), 'is_active' => $request->status]);
-            } else if (request()->file('logo')) {
+                $result = category::where('id',$request->edit_id)->update(['name'=>$request->name, 'name_urdu'=>$request->name_urdu, 'description'=>$request->desc, 'file' => $file->getClientOriginalName(), 'is_active'=>$request->status]);
+            }else if(request()->file('logo')){
 
                 $fileName = null;
                 $logo = request()->file('logo');
                 $logo->move('./public/uploads/pages/', $logo->getClientOriginalName());
 
-                $result = category::where('id', $request->edit_id)->update(['name' => $request->name, 'name_urdu' => $request->name_urdu, 'description' => $request->desc, 'logo' => $logo->getClientOriginalName(), 'is_active' => $request->status]);
-            } else {
-                $result = category::where('id', $request->edit_id)->update(['name' => $request->name, 'name_urdu' => $request->name_urdu, 'description' => $request->desc, 'is_active' => $request->status]);
+                $result = category::where('id',$request->edit_id)->update(['name'=>$request->name, 'name_urdu'=>$request->name_urdu, 'description'=>$request->desc, 'logo' => $logo->getClientOriginalName(), 'is_active'=>$request->status]);
+            }else{
+                $result = category::where('id',$request->edit_id)->update(['name'=>$request->name, 'name_urdu'=>$request->name_urdu, 'description'=>$request->desc, 'is_active'=>$request->status]);
             }
-        } else {
+        }else{
             $file = request()->file('file');
             $logo = request()->file('logo');
             $fileName = $file->getClientOriginalName();
@@ -317,32 +271,33 @@ class HomeController extends Controller
 
             $result = category::create([
                 'name' => request()->get('name'),
-                'name_urdu' => request()->get('name_urdu'),
+                'name_urdu'=>request()->get('name_urdu'),
                 'description' => request()->get('desc'),
                 'logo' => $logoName,
                 'file' => $fileName,
             ]);
+
         }
-        if ($result) {
+        if($result){
             return redirect()->route('manage_category');
         }
     }
 
-    public function add_banner(Request $request)
-    {
+    public function add_banner(Request $request){
 
-        if (isset($request->edit_id)) {
-            if (request()->file('file')) {
+        if(isset($request->edit_id)){
+            if(request()->file('file')){
 
                 $fileName = null;
                 $file = request()->file('file');
                 $file->move('./public/uploads/pages/', $file->getClientOriginalName());
 
-                $result = banner::where('id', $request->edit_id)->update(['file' => $file->getClientOriginalName(), 'is_active' => $request->is_active]);
-            } else {
-                $result = banner::where('id', $request->edit_id)->update(['is_active' => $request->is_active]);
+                $result = banner::where('id',$request->edit_id)->update(['file' => $file->getClientOriginalName(), 'is_active'=>$request->is_active]);
+
+            }else{
+                $result = banner::where('id',$request->edit_id)->update(['is_active'=>$request->is_active]);
             }
-        } else {
+        }else{
             $file = request()->file('file');
             $fileName = $file->getClientOriginalName();
 
@@ -351,25 +306,11 @@ class HomeController extends Controller
             $result = banner::create([
                 'file' => $fileName,
             ]);
+
         }
-        if ($result) {
+        if($result){
             return redirect()->route('manage_banner');
         }
-    }
-
-    public function check_product(Request $request)
-    {
-        $data_array = array();
-
-        $check = product::where('cat_id', $request->cat_id)->where('month', $request->month)->where('year', $request->year);
-
-        if ($check->count() > 0) {
-            $data_array['error'] = "error";
-        } else {
-            $data_array['success'] = "success";
-        }
-
-        return json_encode($data_array);
     }
 
     public function add_product(Request $request)
@@ -435,7 +376,7 @@ class HomeController extends Controller
             return redirect()->route('manage_product');
         }
     }
-
+    
     public function update_book(Request $request)
     {
         $book = book::find($request->edit_id);
@@ -475,8 +416,8 @@ class HomeController extends Controller
             } else if ($request->file_type == 'images') {
 
                 $path = 'public/uploads/products/' . $book->id;
-                $path2 = 'public\uploads\products\\' . $book->id . "\\";
-                $path3 = 'public\images\\';
+                $path2 = 'public/uploads/products/' . $book->id ."/";
+                $path3 = 'public/images/';
 
                 if (public_path('uploads/products/' . $book->id)) {
                     File::deleteDirectory(public_path('uploads/products/' . $book->id));
@@ -484,12 +425,13 @@ class HomeController extends Controller
                 }
 
                 $fileName = null;
-
+                $a = 0;
+                
                 foreach ($file as $value) {
+                    $a++;
                     if (!empty($value)) {
                         $value->move(base_path($path2), $value->getClientOriginalName());
 
-                        ini_set("memory_limit", "256M");
                         $w_mark = base_path($path3) . "watermark.png";
                         $explode = explode('.', $value->getClientOriginalName());
                         $uploadimage = base_path($path2) . $value->getClientOriginalName();
@@ -522,7 +464,6 @@ class HomeController extends Controller
                             $dime_x = 0;
                             $dime_y = 0;
 
-
                             $copy = imagecopy($source, $watermark, $dime_x, $dime_y, 0, 0, $water_width, $water_height);
 
                             imagealphablending($source, false);
@@ -540,6 +481,7 @@ class HomeController extends Controller
                         ]);
                     }
                 }
+                    // dd($a);
             }
         }
         return redirect()->route('manage_book');
@@ -547,7 +489,6 @@ class HomeController extends Controller
 
     public function add_book(Request $request)
     {
-
         $product_id = product::find($request->edit_id);
         $product = book::create([
             'product_id' => $product_id->id,
@@ -565,7 +506,7 @@ class HomeController extends Controller
         }
         if ($product) {
             if ($request->file_type == 'pdf') {
-                $path = 'public/uploads/products/' . $product->id;
+                $path = 'public/uploads/products/' . $product_id->id;
 
                 if (File::exists(public_path('uploads/products/' . $product->id))) {
                     File::deleteDirectory(public_path('uploads/products/' . $product->id));
@@ -587,9 +528,9 @@ class HomeController extends Controller
             } else if ($request->file_type == 'images') {
 
                 $path = 'public/uploads/products/' . $product->id;
-                $path2 = 'public\uploads\products\\' . $product->id . "\\";
-                $path3 = 'public\images\\';
-
+                $path2 = 'public/uploads/products/' . $product->id ."/";
+                $path3 = 'public/images/';
+                
                 if (public_path('uploads/products/' . $product->id)) {
                     File::deleteDirectory(public_path('uploads/products/' . $product->id));
                     $remove = product_file::where('product_id', $product->id)->delete();
@@ -604,7 +545,7 @@ class HomeController extends Controller
                     if (!empty($value)) {
                         $value->move(base_path($path2), $value->getClientOriginalName());
 
-                        ini_set("memory_limit", "256M");
+                        // ini_set("memory_limit", "256M");
                         $w_mark = base_path($path3) . "watermark.png";
                         $explode = explode('.', $value->getClientOriginalName());
                         $uploadimage = base_path($path2) . $value->getClientOriginalName();
@@ -659,119 +600,114 @@ class HomeController extends Controller
         }
         return redirect()->route('manage_product');
     }
-
-    public function readBook(Request $request)
-    {
+    
+    public function readBook(Request $request){
         $product = product_file::where('product_id', $request->pro_id)->where('is_active', 1)->get();
         return $product;
     }
 
-    public function edit_product(Request $request)
-    {
+    public function edit_product(Request $request){
 
-        if ($request->month != null) {
+        if($request->month != null){
 
-            $date = explode("-", request()->get('month'));
+            $date = explode("-",request()->get('month'));
 
-            if ($date[1] == 1) {
+            if($date[1] == 1){
                 $month = "Jan";
-            } elseif ($date[1] == 2) {
+            }elseif($date[1] == 2){
                 $month = "Feb";
-            } elseif ($date[1] == 3) {
+            }elseif($date[1] == 3){
                 $month = "Mar";
-            } elseif ($date[1] == 4) {
+            }elseif($date[1] == 4){
                 $month = "Apr";
-            } elseif ($date[1] == 5) {
+            }elseif($date[1] == 5){
                 $month = "May";
-            } elseif ($date[1] == 6) {
+            }elseif($date[1] == 6){
                 $month = "Jun";
-            } elseif ($date[1] == 7) {
+            }elseif($date[1] == 7){
                 $month = "Jul";
-            } elseif ($date[1] == 8) {
+            }elseif($date[1] == 8){
                 $month = "Aug";
-            } elseif ($date[1] == 9) {
+            }elseif($date[1] == 9){
                 $month = "Sep";
-            } elseif ($date[1] == 10) {
+            }elseif($date[1] == 10){
                 $month = "Oct";
-            } elseif ($date[1] == 11) {
+            }elseif($date[1] == 11){
                 $month = "Nov";
-            } elseif ($date[1] == 12) {
+            }elseif($date[1] == 12){
                 $month = "Dec";
             }
 
-            $result = product::where('id', $request->prod_id)->update([
+            $result = product::where('id',$request->prod_id)->update([
                 'year' => $date[0],
                 'month' => $month,
             ]);
         }
 
-        if (request()->file('file')) {
+        if(request()->file('file')){
             $fileName = null;
             $file = request()->file('file');
             $file->move('./public/uploads/pages/', $file->getClientOriginalName());
 
-            $result = product::where('id', $request->prod_id)->update([
-                'name' => $request->name,
-                'name_urdu' => $request->name_urdu,
-                'description' => $request->description,
-                'cat_id' => $request->cat_id,
+            $result = product::where('id',$request->prod_id)->update([
+                'name'=>$request->name,
+                'name_urdu'=>$request->name_urdu,
+                'description'=>$request->description,
+                'cat_id'=>$request->cat_id,
                 'file' => $file->getClientOriginalName(),
                 'price' => request()->get('price'),
                 'is_active' => request()->get('is_active'),
             ]);
-        } else {
-            $result = product::where('id', $request->prod_id)->update([
-                'name' => $request->name,
-                'name_urdu' => $request->name_urdu,
-                'description' => $request->description,
-                'cat_id' => $request->cat_id,
+        }else{
+            $result = product::where('id',$request->prod_id)->update([
+                'name'=>$request->name,
+                'name_urdu'=>$request->name_urdu,
+                'description'=>$request->description,
+                'cat_id'=>$request->cat_id,
                 'price' => request()->get('price'),
                 'is_active' => request()->get('is_active'),
             ]);
         }
-        $imgagess = page_image::where("is_active", 1)->get();
-        foreach ($imgagess as $img) {
-            if (request()->file("product_img_" . $img->id)) {
+        $imgagess = page_image::where("is_active",1)->get();
+        foreach($imgagess as $img){
+            if(request()->file("product_img_".$img->id)){
                 $fileName = null;
-                $file = request()->file('product_img_' . $img->id);
+                $file = request()->file('product_img_'.$img->id);
                 $file->move('./public/uploads/pages/', $file->getClientOriginalName());
 
-                $res = page_image::where('id', $img->id)->update([
+                $res = page_image::where('id',$img->id)->update([
                     'file' => $file->getClientOriginalName()
                 ]);
             }
         }
         return redirect()->route('manage_product');
+
     }
 
     public function pro_img_destroy(page_image $id)
     {
         $id->delete();
         return redirect()->route('manage_product')
-            ->with('success', 'Image deleted successfully');
+        ->with('success','Image deleted successfully');
     }
 
-    public function add_to_cart($id)
-    {
+    public function add_to_cart($id){
+
         $id = Crypt::decrypt($id);
         $product = book::where('books.id', $id)->join('products', 'books.product_id', 'products.id')->select('products.file', 'products.year', 'products.month', 'books.*')->get();
-        // $product = product::where('id', $id)->get();
-        // dd($product);
         $categories = category::where('id', 8)->where('is_deleted', 0)->get();
         $novel = product::where('cat_id', 8)->where('is_active', 1)->where('is_deleted', 0)->get();
 
         return view("web.pages.add_to_cart")->with(compact('product', 'categories', 'novel'));
-        // return view("web.pages.checkout")->with(compact('product'));
 
     }
 
-    public function place_order(Request $request)
-    {
+    public function place_order(Request $request){
 
         $password = Str::random(10);
-        if (Auth::user()) {
+        if(Auth::user()){
             $result = Auth::user();
-        } else {
+        }else{
 
             $result = User::create([
                 'f_name' => $request->get('f_name'),
@@ -793,7 +729,7 @@ class HomeController extends Controller
 
         $order = order::create([
             'user_id' => $result->id,
-            'amount' => $request->get('qty') * $request->get('amount') + $request->get('shipping_charges'),
+            'amount' => $request->get('qty')*$request->get('amount')+$request->get('shipping_charges'),
             'status' => "Pending",
         ]);
 
@@ -802,7 +738,7 @@ class HomeController extends Controller
             'user_id' => $result->id,
             'product_id' => $request->get('product_id'),
             'qty' => $request->get('qty'),
-            'amount' => $request->get('qty') * $request->get('amount') + $request->get('shipping_charges'),
+            'amount' => $request->get('qty')*$request->get('amount')+$request->get('shipping_charges'),
         ]);
 
         $shipping_address = shipping_address::create([
@@ -819,31 +755,30 @@ class HomeController extends Controller
             'shipping_charges' => $request->get('shipping_charges')
         ]);
 
-        if (!Auth::user()) {
+        if(!Auth::user()){
             $ab = Mail::to($_POST['email'])->send(new MailSentpassword($details));
         }
         return redirect()->route('welcome');
+
     }
 
-    public function order_status_change(Request $request)
-    {
-        $result = order_item::where('id', $request->edit_id)->update(['status' => $request->status]);
+    public function order_status_change(Request $request){
+        $result = order_item::where('id',$request->edit_id)->update(['status' => $request->status]);
         return redirect()->route('manage_orders');
     }
 
-    public function add_page_images(Request $request)
-    {
+    public function add_page_images(Request $request){
         // dd($request);
-        if (isset($request->edit_id)) {
-            if (request()->file('img')) {
+        if(isset($request->edit_id)){
+            if(request()->file('img')){
                 $fileName = null;
                 $file = request()->file('img');
                 $file->move('./public/uploads/pages/', $file->getClientOriginalName());
-                $result = page_image::where('id', $request->edit_id)->update(['file' => $file->getClientOriginalName(), 'product_id' => $request->product_id, 'is_active' => $request->status]);
-            } else {
-                $result = page_image::where('id', $request->edit_id)->update(['product_id' => $request->product_id, 'is_active' => $request->status]);
+                $result = page_image::where('id',$request->edit_id)->update(['file' => $file->getClientOriginalName(), 'product_id'=>$request->product_id, 'is_active'=>$request->status]);
+            }else{
+                $result = page_image::where('id',$request->edit_id)->update(['product_id'=>$request->product_id, 'is_active'=>$request->status]);
             }
-        } else {
+        }else{
             $fileName = null;
             $file = request()->file('img');
             $file->move('./public/uploads/pages/', $file->getClientOriginalName());
@@ -855,7 +790,7 @@ class HomeController extends Controller
                 'file' => $file->getClientOriginalName()
             ]);
         }
-        if ($result) {
+        if($result){
             return redirect()->route('manage_images');
         }
     }
@@ -867,7 +802,7 @@ class HomeController extends Controller
         if ($year) {
             $msg_body = "<option >Select Any Year</option>";
             foreach ($year as $value) {
-                $msg_body .= "<option value='" . $value['year'] . "'>" . $value['year'] . "</option>";
+                $msg_body .= "<option value='".$value['year']."'>".$value['year']."</option>";
             }
         }
         return $msg_body;
@@ -880,7 +815,7 @@ class HomeController extends Controller
         if ($month) {
             $msg_body = "<option >Select Any Month </option>";
             foreach ($month as $value) {
-                $msg_body .= "<option value='" . $value['month'] . "'>" . $value['month'] . "</option>";
+                $msg_body .= "<option value='".$value['month']."'>".$value['month']."</option>";
             }
         }
         return $msg_body;
@@ -889,24 +824,22 @@ class HomeController extends Controller
     public function select_month(Request $request)
     {
         $products = product::where('cat_id', $request->cat_id)->where('year', $request->year)->where('month', $request->month)->get();
-
         if ($products) {
             $msg_body = "<div class='row'>";
             foreach ($products as $value) {
-                $msg_body .= "<div class='col-lg-3'>" . $value['name'] . "</div>";
-                $msg_body .= "<div class='col-lg-3'>" . $value['month'] . "</div>";
-                $msg_body .= "<div class='col-lg-3'>" . $value['year'] . "</div>";
-                $msg_body .= "<div class='col-lg-3'> <a href='" . route('add_to_cart', $value['id']) . "' class='cta-btn'> Details </a> </div>";
+                $msg_body .= "<div class='col-lg-3'>".$value['name']."</div>";
+                $msg_body .= "<div class='col-lg-3'>".$value['month']."</div>";
+                $msg_body .= "<div class='col-lg-3'>".$value['year']."</div>";
+                $msg_body .= "<div class='col-lg-3'> <a href='".route('add_to_cart',$value['id'])."' class='cta-btn'> Details </a> </div>";
             }
             $msg_body .= "</div>";
-            // $msg_body = "<a href='" . route('add_to_cart', $products[0]['id']) . "' class='get-a-quote cta-btn search_btn'> Search </a>";
-            $msg_body = "<a href='" . route('view_books', Crypt::encrypt($products[0]['id'])) . "' class='get-a-quote cta-btn search_btn'> Search </a>";
+            $msg_body = "<a href='".route('view_books',Crypt::encrypt($products[0]['id']))."' class='get-a-quote cta-btn search_btn'> Search </a>";
         }
+
         return $msg_body;
     }
 
-    public function add_blog(Request $request)
-    {
+    public function add_blog(Request $request){
 
         $fileName = null;
         $file = request()->file('file');
@@ -921,7 +854,7 @@ class HomeController extends Controller
             'is_active' => 0
         ]);
 
-        if ($result) {
+        if($result){
 
             $details = [
                 'id' => Crypt::encrypt($result->id),
@@ -935,14 +868,14 @@ class HomeController extends Controller
         }
     }
 
-    public function active_blog(Request $request)
-    {
+    public function active_blog(Request $request){
 
         $blog = blog::find($request->id);
         $blog->is_active = $request->is_active;
         $blog->save();
 
         return redirect()->route('manage_blog');
+
     }
 
     public function active_book(Request $request)
@@ -954,39 +887,38 @@ class HomeController extends Controller
 
         return redirect()->route('manage_blog');
     }
-
-    public function active_comment(Request $request)
-    {
+    
+    public function active_comment(Request $request){
 
         $blog = blog_comment::find($request->id);
         $blog->is_active = $request->is_active;
         $blog->save();
 
         return redirect()->route('manage_blog_comment');
+
     }
 
-    public function email_verify($id)
-    {
+    public function email_verify($id){
 
         $blog = blog::find(Crypt::decrypt($id));
         $blog->is_approved = 1;
         $blog->save();
 
         return redirect()->route('blogs');
+
     }
 
-    public function email_verify_for_comment($id)
-    {
+    public function email_verify_for_comment($id){
 
         $blog = blog_comment::find(Crypt::decrypt($id));
         $blog->is_approved = 1;
         $blog->save();
 
         return redirect()->route('blogs');
+
     }
 
-    public function send_comment(Request $request)
-    {
+    public function send_comment(Request $request){
 
         $result = blog_comment::create([
             'comment' => request()->get('comment'),
@@ -995,7 +927,7 @@ class HomeController extends Controller
             'email' => request()->get('email'),
             'is_active' => 0
         ]);
-        if ($result) {
+        if($result){
             $details = [
                 'id' => Crypt::encrypt($result->id),
                 'name' => $request->get('name'),
@@ -1004,15 +936,17 @@ class HomeController extends Controller
             ];
             $ab = Mail::to($_POST['email'])->send(new MailVerification($details));
 
-            return redirect()->route('blogs_detail', request()->get('blog_id'));
+            return redirect()->route('blogs_detail',request()->get('blog_id'));
         }
     }
 
     public function shift_change()
     {
+
+
     }
 
-    // office details start
+// office details start
 
     public function user_office_details()
     {
@@ -1021,9 +955,11 @@ class HomeController extends Controller
         if ($user->role_id != 1) {
 
             return redirect()->route("welcome");
+
         }
 
-        return view('user-office-details')->with('title', "Office Details")->with(compact('user'));
+        return view('user-office-details')->with('title',"Office Details")->with(compact('user'));
+
     }
 
     public function user_office_infoupdate(Request $request)
@@ -1059,21 +995,23 @@ class HomeController extends Controller
 
         // Session::flash('message', 'This is a message!');
 
-        Session::flash('alert-class', 'alert-danger');
+         Session::flash('alert-class', 'alert-danger');
 
         return redirect()->back()->with('message', 'Information updated successfully');
+
     }
 
-    // office details end
+// office details end
 
-    // file details start
+// file details start
 
     public function user_file_details()
     {
 
         $user = Auth::user();
 
-        return view('user-file-details')->with('title', "file Details")->with(compact('user'));
+        return view('user-file-details')->with('title',"file Details")->with(compact('user'));
+
     }
 
     public function user_file_infoupdate(Request $request)
@@ -1115,7 +1053,7 @@ class HomeController extends Controller
 
     }
 
-    // file details end
+// file details end
 
     public function upload_image(Request $request)
     {
@@ -1126,7 +1064,8 @@ class HomeController extends Controller
 
         if ($request->file('pic_attach') != '') {
 
-            $path = ($request->file('pic_attach'))->store('public/uploads/avatar/' . md5(Str::random(20)), 'public');
+            $path = ($request->file('pic_attach'))->store('public/uploads/avatar/'.md5(Str::random(20)), 'public');
+
         }
 
         $user->profile_pic = $path;
@@ -1134,6 +1073,7 @@ class HomeController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Image has been successfully updated');
+
     }
 
     public function profile_submit(Request $request)
@@ -1147,23 +1087,28 @@ class HomeController extends Controller
 
             if ($request->file('avatar') != '') {
 
-                $request->validate([
+                 $request->validate([
 
-                    'avatar' => ['required', 'mimes:jpeg,png,jpg', 'max:2000']
+                 'avatar' => ['required', 'mimes:jpeg,png,jpg', 'max:2000']
 
                 ]);
 
-                $path_a = ($request->file('avatar'))->store('public/uploads/avatar/' . md5(Str::random(20)), 'public');
+                $path_a = ($request->file('avatar'))->store('public/uploads/avatar/'.md5(Str::random(20)), 'public');
 
                 $user->profile_pic = $path_a;
 
                 $user->save();
 
                 return redirect()->back()->with('message', 'Profile Picture been updated successfully');
-            } else {
 
-                return redirect()->back()->with('error', 'File not found, please update your Profile Picture');
             }
+
+            else{
+
+                 return redirect()->back()->with('error', 'File not found, please update your Profile Picture');
+
+            }
+
         }
 
         // Resume Upload
@@ -1172,23 +1117,28 @@ class HomeController extends Controller
 
             if ($request->file('cnic_file') != '') {
 
-                $request->validate([
+            $request->validate([
 
-                    'cnic_file' => ['required', 'mimes:jpeg,png,jpg', 'max:2000']
+             'cnic_file' => ['required', 'mimes:jpeg,png,jpg', 'max:2000']
 
-                ]);
+            ]);
 
-                $path_c = ($request->file('cnic_file'))->store('public/uploads/cnic/' . md5(Str::random(20)), 'public');
+            $path_c = ($request->file('cnic_file'))->store('public/uploads/cnic/'.md5(Str::random(20)), 'public');
 
-                $user->cnic_doc = $path_c;
+            $user->cnic_doc = $path_c;
 
-                $user->save();
+            $user->save();
 
-                return redirect()->back()->with('message', 'NIC Picture has been updated successfully');
-            } else {
+            return redirect()->back()->with('message', 'NIC Picture has been updated successfully');
 
-                return redirect()->back()->with('error', 'File not found, please update your NIC Picture');
+        }
+
+            else{
+
+                 return redirect()->back()->with('error', 'File not found, please update your NIC Picture');
+
             }
+
         }
 
         // // CNIC Upload
@@ -1197,49 +1147,60 @@ class HomeController extends Controller
 
             if ($request->file('cv_file') != '') {
 
-                $request->validate([
+            $request->validate([
 
-                    'cv_file' => ['required', 'mimes:doc,docs,pdf', 'max:5000']
+             'cv_file' => ['required', 'mimes:doc,docs,pdf', 'max:5000']
 
-                ]);
+            ]);
 
-                $path_r = ($request->file('cv_file'))->store('public/uploads/resume/' . md5(Str::random(20)), 'public');
+            $path_r = ($request->file('cv_file'))->store('public/uploads/resume/'.md5(Str::random(20)), 'public');
 
-                $user->resume_doc = $path_r;
+            $user->resume_doc = $path_r;
 
-                $user->save();
+            $user->save();
 
-                return redirect()->back()->with('message', 'Resume/CV Document has been updated successfully');
-            } else {
+            return redirect()->back()->with('message', 'Resume/CV Document has been updated successfully');
 
-                return redirect()->back()->with('error', 'File not found, please update your Resume/CV Document');
-            }
         }
 
-        // // Education Upload
+            else{
+
+                 return redirect()->back()->with('error', 'File not found, please update your Resume/CV Document');
+
+            }
+
+        }
+
+       // // Education Upload
 
         if ($request->has('education_file')) {
 
             if ($request->file('education_file') != '') {
 
-                $request->validate([
+            $request->validate([
 
-                    'education_file' => ['required', 'mimes:doc,docs,pdf', 'max:5000']
+             'education_file' => ['required', 'mimes:doc,docs,pdf', 'max:5000']
 
-                ]);
+            ]);
 
-                $path_e = ($request->file('education_file'))->store('public/uploads/education/' . md5(Str::random(20)), 'public');
+            $path_e = ($request->file('education_file'))->store('public/uploads/education/'.md5(Str::random(20)), 'public');
 
-                $user->education_doc = $path_e;
+            $user->education_doc = $path_e;
 
-                $user->save();
+            $user->save();
 
-                return redirect()->back()->with('message', 'Education Document has been updated successfully');
-            } else {
+            return redirect()->back()->with('message', 'Education Document has been updated successfully');
 
-                return redirect()->back()->with('error', 'File not found, please update your Education Document');
-            }
         }
+
+            else{
+
+                 return redirect()->back()->with('error', 'File not found, please update your Education Document');
+
+            }
+
+        }
+
     }
 
     public function add_applicant()
@@ -1255,11 +1216,13 @@ class HomeController extends Controller
         if ($user->role_id != 1) {
 
             return redirect()->route("welcome");
+
         }
 
         $config = config::all();
 
         return view('config')->with('title', "System Configuration")->with(compact('user', 'config'));
+
     }
 
     public function config_update(Request $request)
@@ -1276,8 +1239,11 @@ class HomeController extends Controller
             $config->value = $value;
 
             $config->save();
+
         }
 
         return redirect()->back()->with('message', 'Setting has been updated.');
     }
+
 }
+

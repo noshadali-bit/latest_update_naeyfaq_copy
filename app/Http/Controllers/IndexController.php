@@ -28,14 +28,6 @@ use App\Mail\MailContact;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use \Crypt;
-// use App\Models\inquiry;
-// use App\Models\reviews;
-// use App\Models\company;
-// use App\Models\save_job;
-// use App\Models\stories;
-// use App\Models\interviews;
-// use App\Models\invite_job;
-// use App\Models\job_inquiry;
 
 class IndexController extends Controller
  {
@@ -55,11 +47,11 @@ class IndexController extends Controller
      */
     public function index()
     {
-        // DB::table('users')->select('users.id','users.name','profiles.photo')->join('profiles','profiles.id','=','users.id')->where(['something' => 'something', 'otherThing' => 'otherThing'])->get();
+
         $categories = category::select('categories.id','categories.name', 'categories.name_urdu')->join('products','products.cat_id','=','categories.id')->distinct('categories.id')->where("categories.is_active", 1)->get();
         $category = category::orderBy('id', 'desc')->where("is_active", 1)->where('is_deleted', 0)->get();
-        $product = product::where("is_active", 1)->where('is_deleted', 0)->get();
-        $img = page_image::where("is_active", 1)->where('is_deleted', 0)->get();
+        $product = product::where("is_active", 1)->where('is_deleted', 0)->orderBy('id', 'DESC')->get();
+        $img = page_image::where("is_active", 1)->where('is_deleted', 0)->orderBy('id', 'DESC')->get();
         $banner = banner::where('is_active' , 1)->get();
 
         return view('web.pages.index')->with(compact('category', 'product', 'img', 'categories', 'banner'));
@@ -67,8 +59,8 @@ class IndexController extends Controller
 
     public function novel()
     {
-        $novel = product::where("cat_id", 8)->where("is_active", 1)->where('is_deleted', 0)->get();
-        $banner = banner::where('is_active' , 1)->get();
+        $novel = product::where("cat_id", 8)->where("is_active", 1)->where('is_deleted', 0)->orderBy('id', 'DESC')->get();
+        $banner = banner::where('is_active' , 1)->orderBy('id', 'DESC')->get();
 
         return view("web.pages.novel")->with(compact("novel", "banner"));
     }
@@ -80,9 +72,9 @@ class IndexController extends Controller
 
     public function about_us()
     {
-        $category = category::where('id',8)->where('is_active', 1)->where('is_deleted',0)->get();
-        $novel = product::where('cat_id', 8)->where('is_active', 1)->where('is_deleted',0)->get();
-        return view("web.pages.about-us")->with(compact('novel', 'category'));
+        $categories = category::where('id',8)->where('is_deleted',0)->orderBy('id', 'DESC')->get();
+        $novel = product::where('cat_id', 8)->where('is_active', 1)->where('is_deleted',0)->orderBy('id', 'DESC')->get();
+        return view("web.pages.about-us")->with(compact('novel', 'categories'));
     }
 
     public function checkout($id)
@@ -100,24 +92,24 @@ class IndexController extends Controller
 
     public function categories($id)
     {
+        $product_year = [];
         $id = Crypt::decrypt($id);
         $category = category::where('id',$id)->where('is_active', 1)->where('is_deleted',0)->get();
-        $products = product::where('cat_id', $id)->where('is_active', 1)->where('is_deleted',0)->get();
-
-        $product_year = product::seletc('year')->groupBy('id')->where('cat_id', $id)->where('is_active', 1)->where('is_deleted',0)->get();
-
-        $categories = category::where('id',8)->where('is_active', 1)->where('is_deleted',0)->get();
-        $novel = product::where('cat_id', 8)->where('is_active', 1)->where('is_deleted',0)->get();
+        $products = product::where('cat_id', $id)->where('is_active', 1)->where('is_deleted',0)->orderBy('id', 'DESC')->get();
+        $product_year = product::select('year')->groupBy('year')->where('cat_id', $id)->where('is_active', 1)->where('is_deleted',0)->get();
+        $categories = category::where('id',8)->where('is_deleted',0)->orderBy('id', 'DESC')->get();
+        $novel = product::where('cat_id', 8)->where('is_active', 1)->where('is_deleted',0)->orderBy('id', 'DESC')->get();
         return view("web.pages.categories")->with(compact('category', 'products', 'novel', 'categories', 'product_year'));
     }
 
     public function search_on_year(Request $request)
     {
         $search = explode(" ", $request->search);
-        $products = product::where('cat_id', $request->cat_id)->where('year', $search[1])->where('is_active', 1)->where('is_deleted',0)->get();
+        $products = product::where('cat_id', $request->cat_id)->where('year', $search[1])->where('is_active', 1)->where('is_deleted',0)->orderBy('id', 'DESC')->get();
         return json_encode(['products'=>$products]);
+    
     }
-
+    
     public function user_dashboard()
     {
         if(Auth::User()){
@@ -164,8 +156,8 @@ class IndexController extends Controller
 
     public function blogs()
     {
-        $blog = blog::where('is_active', 1)->where('is_approved', 1)->get();
-        $blog_comment = blog_comment::where("is_active", 1)->where('is_approved', 1)->get();
+        $blog = blog::where('is_active', 1)->where('is_approved', 1)->orderBy('id', 'DESC')->get();
+        $blog_comment = blog_comment::where("is_active", 1)->where('is_approved', 1)->orderBy('id', 'DESC')->get();
         return view("web.pages.blogs")->with(compact('blog', 'blog_comment'));
     }
 
@@ -177,12 +169,16 @@ class IndexController extends Controller
         return view("web.pages.blogs-detail")->with(compact("blog", "blog_comment"));
     }
 
-    public function view_books($id)
+    public function view_books($id, $pro=null)
     {
-        $id = Crypt::decrypt($id);
-        $book = book::where('product_id', $id)->where('is_active', 1)->where('is_deleted', 0)->get();
-        $novel = product::where('cat_id', 8)->where('is_active', 1)->where('is_deleted',0)->get();
-        // dd($book);
+        if($pro != null){
+            $id = $pro;
+        }else{
+            $id = Crypt::decrypt($id);
+        }
+        
+        $book = book::where('product_id', $id)->where('is_active', 1)->where('is_deleted', 0)->orderBy('id', 'DESC')->get();
+        $novel = product::where('cat_id', 8)->where('is_active', 1)->where('is_deleted',0)->orderBy('id', 'DESC')->get();
         return view('web.pages.view_book')->with(compact('book', 'novel'));
     }
 
@@ -385,7 +381,7 @@ class IndexController extends Controller
 
     public function check_login($email, $name)
     {
-        // dd($email,$name);
+
         $user = User::where('email', $email)->first();
         if ($user) {
             Auth::login($user, true);
@@ -401,5 +397,6 @@ class IndexController extends Controller
             return redirect()->route('welcome');
         }
     }
+
 
 }

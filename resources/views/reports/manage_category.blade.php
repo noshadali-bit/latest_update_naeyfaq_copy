@@ -177,31 +177,9 @@
 <!-- END: Card DATA-->
 @endsection 
 @section('link') 
-<link rel="stylesheet" href="{{asset('vendors/datatable/css/dataTables.bootstrap4.min.css')}}" />
-<link rel="stylesheet" href="{{asset('vendors/datatable/buttons/css/buttons.bootstrap4.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('vendors/x-editable/css/bootstrap-editable.css')}}" />
 @endsection 
 
 @section('script') 
-<!-- END: Template JS-->
-
-<script src="{{asset('vendors/x-editable/js/bootstrap-editable.min.js')}}"></script>
-<script src="{{asset('js/xeditable.script.js')}}"></script>
-
-<script src="{{asset('vendors/datatable/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/js/dataTables.bootstrap4.min.js')}}"></script>
-
-<script src="{{asset('vendors/datatable/jszip/jszip.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/pdfmake/pdfmake.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/pdfmake/vfs_fonts.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/dataTables.buttons.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/buttons.bootstrap4.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/buttons.colVis.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/buttons.flash.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/buttons.html5.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/buttons.print.min.js')}}"></script>
-
-<script src="{{asset('js/datatable.script.js')}}"></script>
 @endsection 
 
 @section('css') 
@@ -228,9 +206,7 @@
      
         $("#img_name").val($(this).data('name'));
         $("#img_name_urdu").val($(this).data('name_urdu'));
-      //   $("#img_logo").val($(this).data('logo'));
-        
-      //   $("#logo").attr("src","{{asset('/uploads/pages/')}}/"+$(this).data('logo'));
+
         $("#image").attr("src","{{asset('/uploads/pages/')}}/"+$(this).data('file'));
         $("#logo").show();
         $("#image").show();
@@ -246,12 +222,9 @@
          body += "<option value='1'>Active</option><option value='0' selected>In-Active</option>";
         } 
 
-            body += " </select>";     
-            $("#editis_active").html(body);
-            $("#exampleModalgrid").modal('show');
-        
-    //     $("#edit_email").prop("data-placeholder",$(this).data('email'));
-    //     $("#edit_userid").val($(this).data('edit_userid'));
+        body += " </select>";     
+        $("#editis_active").html(body);
+        $("#exampleModalgrid").modal('show');
     })   
     
     $("#add_category").click(function(){

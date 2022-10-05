@@ -54,7 +54,7 @@
                               <td>{{$val->price}}</td>
                               <td>{{$val->created_at}}</td>
                               <td>
-                                 <button type="button" class="btn btn-primary edit_page" data-read_id= "{{$val->id}}" data-product_id= "{{$val->product_id}}">Read</button>
+                                 <button type="button" onclick="readBook({{$val->id}})" class="btn btn-primary " data-read_id= "{{$val->id}}" data-product_id= "{{$val->product_id}}">Read</button>
                               </td>
                            </tr>
                            @endforeach @endif
@@ -84,43 +84,28 @@
    </div>
 </main>
 <!-- Edit user modal -->
-<div class="modal fade" id="exampleModalgrid" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle3" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered show_images" role="document">
-      <div class="modal-content " >
 
-      </div>
-   </div>
-</div>
+<div class="modal fade" id="show_book" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle3" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-slik" role="document">
+       <div class="modal-content">
+          <div class="show_files ">
 
+            <div class="addFile slider slider-product">
+
+			</div>
+
+          </div>
+       </div>
+    </div>
+ </div>
+ 
 <!-- Edit user modal End-->
 <!-- END: Card DATA-->
 @endsection
 @section('link')
-<link rel="stylesheet" href="{{asset('vendors/datatable/css/dataTables.bootstrap4.min.css')}}" />
-<link rel="stylesheet" href="{{asset('vendors/datatable/buttons/css/buttons.bootstrap4.min.css')}}"/>
-<link rel="stylesheet" href="{{asset('vendors/x-editable/css/bootstrap-editable.css')}}" />
 @endsection
 
 @section('script')
-<!-- END: Template JS-->
-
-<script src="{{asset('vendors/x-editable/js/bootstrap-editable.min.js')}}"></script>
-<script src="{{asset('js/xeditable.script.js')}}"></script>
-
-<script src="{{asset('vendors/datatable/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/js/dataTables.bootstrap4.min.js')}}"></script>
-
-<script src="{{asset('vendors/datatable/jszip/jszip.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/pdfmake/pdfmake.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/pdfmake/vfs_fonts.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/dataTables.buttons.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/buttons.bootstrap4.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/buttons.colVis.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/buttons.flash.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/buttons.html5.min.js')}}"></script>
-<script src="{{asset('vendors/datatable/buttons/js/buttons.print.min.js')}}"></script>
-
-<script src="{{asset('js/datatable.script.js')}}"></script>
 @endsection
 
 @section('css')
@@ -153,10 +138,63 @@
       @endforeach
       images+="<div>";
       $("#exampleModalgrid").modal('show');
-      // $("#exampleModalgrid").html(images);
-      $(".show_images").html(images);
+      $("#show_images").empty().append(images);
    })
 
+    function readBook(id){
+        $.ajax({
+            method: "POST",
+            url: "{{ route('readBook') }}",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                pro_id: id,
+            },
+            success: function(response) {
+                try{
+                    $('.slider-product').slick('unslick')
+                }catch(ex){}
+                setTimeout(function(){
+                    $('.addFile').html('');
+                    //console.log($('.addFile').html())
+                    if(response.length>0){
+
+                        if(response[0].file_type == 'images'){
+
+                            $(".slick-list").empty();
+                            console.log(1);
+                            $.each(response, function(index, value) {
+                                $('.addFile').append("<div><img src='"+value.image_url+"' class='img-fluid'></div>");
+                            });
+
+
+                            setTimeout(function(){
+
+                                $('.slider-product').slick({
+                                    slidesToShow: 2,
+                                    slidesToScroll: 2,
+                                    dots: false,
+                                    infinite: true,
+                                });
+                            },200)
+
+
+                        }else if(response[0].file_type == 'pdf'){
+                            var a = "<embed src='" + response[0].image_url + "' frameborder='0' width='100%' height='400px'>";
+                            $('.addFile').html(a);
+                        }else{
+                            $('.addFile').html("<p class='their_is_no_file'>Their is no Files</p>");
+                        }
+                        $("#show_book").modal('show');
+
+                    }else{
+                        $('.addFile').html("<p class='their_is_no_file'>Their is no Files</p>");
+                        $("#show_book").modal('show');
+                    }
+                },500)
+
+            }
+        });
+    }
 
 
 </script>

@@ -337,31 +337,9 @@
     <!-- END: Card DATA-->
 @endsection
 @section('link')
-    <link rel="stylesheet" href="{{ asset('vendors/datatable/css/dataTables.bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('vendors/datatable/buttons/css/buttons.bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('vendors/x-editable/css/bootstrap-editable.css') }}" />
 @endsection
 
 @section('script')
-    <!-- END: Template JS-->
-
-    <script src="{{ asset('vendors/x-editable/js/bootstrap-editable.min.js') }}"></script>
-    <script src="{{ asset('js/xeditable.script.js') }}"></script>
-
-    <script src="{{ asset('vendors/datatable/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatable/js/dataTables.bootstrap4.min.js') }}"></script>
-
-    <script src="{{ asset('vendors/datatable/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatable/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatable/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('vendors/datatable/buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatable/buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatable/buttons/js/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatable/buttons/js/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatable/buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatable/buttons/js/buttons.print.min.js') }}"></script>
-
-    <script src="{{ asset('js/datatable.script.js') }}"></script>
 @endsection
 
 @section('css')
@@ -471,15 +449,6 @@
                     },
                     success: function(response) {
 
-                        // console.log(response)
-                        // if (response == null) {
-                        //     $("#submit_btn").prop('disabled', false);
-                        //     $("#submit_btn").removeAttr("disabled");
-                        // } else {
-                        //     $("#submit_btn").attr("disabled", true);
-                        // }
-                        //var data = jQuery.parseJSON(JSON.stringify(response));
-
                         if (typeof response['error'] !== 'undefined' && response['error'].length > 0) {
                             $('#submit_btn').prop('disabled', true);
                             $('#error_msg').show();
@@ -488,7 +457,6 @@
                         }
                         if (typeof response['success'] !== 'undefined' && response['success'].length > 0) {
                             $('#error_msg').hide();
-                            //$('#submit_btn').attr('disabled', '');
                             $('#submit_btn').prop('disabled', false);
                         }
                     },

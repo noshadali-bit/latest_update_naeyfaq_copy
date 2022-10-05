@@ -32,12 +32,12 @@ class LoginController extends Controller
     //protected $redirectTo = RouteServiceProvider::HOME;
     protected $redirectTo = '/';
     protected function redirectTo()
-    {
+    {   
         if(Auth::user()->is_active == 0){
-
+            
             Auth::logout();
             return '/signin?error=Account Not Activated. kindly Verify your account email address';
-
+            
         }
 
         if(Auth::user()->role_id == 1){
@@ -54,8 +54,8 @@ class LoginController extends Controller
             if (isset($reviews_data)&& $reviews_data->step_filled==2) {
             $reviews = reviews::where('id', $review_id)->update($review_feilds);
             Session::forget('review_id');
-            return '/welcome?message=Youe review details has been saved';
-            }
+            return '/welcome?message=Youe review details has been saved';   
+            }    
         }
         return '/';
     }

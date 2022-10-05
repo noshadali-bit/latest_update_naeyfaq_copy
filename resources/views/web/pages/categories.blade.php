@@ -49,7 +49,7 @@
               <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select_on_year">
               @if(isset($product_year))
               @foreach($product_year as $pro)
-                <option selected>{{$cat->name}} {{$pro->year}} </option>
+                <option selected>{{$category[0]->name}} {{$pro->year}} </option>
               @endforeach
               @endif
               </select>
@@ -104,9 +104,8 @@
                     @foreach($products as $pro)
 
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                      <div class="swiper-slide"> <a @if($pro->price == 0) onclick="readBook({{$pro->id}})" @else href="{{route('add_to_cart',Crypt::encrypt($pro->id))}}" @endif><img src='{{asset("uploads/pages/$pro->file")}}' class="img-fluid"></a>
-                        <h3>{{$pro->name}} <!--<span>{{--{{$pro->month}} {{$pro->year}}--}}</span>--></h3>
-                        {{-- <a @if($pro->price == 0) onclick="readBook({{$pro->id}})" @else href="{{route('add_to_cart',$pro->id)}}" @endif  class="cta-btn">@if($pro->price == 0) Read More @else Add To Bucket List @endif</a>  --}}
+                      <div class="swiper-slide"> <a href="{{route('view_books',Crypt::encrypt($pro->id))}}"><img src='{{asset("uploads/pages/$pro->file")}}' class="img-fluid"></a>
+                        <h3>{{$pro->name}} </h3>
                         <a href="{{route('view_books',Crypt::encrypt($pro->id))}}" class="cta-btn"> Read More </a>
                         </div>
                     </div>
@@ -118,7 +117,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-2 hosging-adv cat-hosging-adv"> <img src="{{asset('web/img/hosting-adv.png')}}"> <!--<img src="{{asset('web/img/power-adv.png')}}"> --></div>
+          <div class="col-md-2 hosging-adv cat-hosging-adv"> <img src="{{asset('web/img/hosting-adv.png')}}"> </div>
         </div>
       </div>
     </section>
@@ -150,8 +149,6 @@
           @isset($novel) @foreach($novel as $pro) @if($pro->cat_id == $cat->id)
 
             <div class="swiper-slide">
-              {{-- <a @if($pro->price == 0) onclick="readBook({{$pro->id}})" @else href="{{route('add_to_cart',Crypt::encrypt($pro->id))}}" @endif class="cta-btn">
-               <img src="{{asset('/uploads/pages/'.$pro->file)}}"></a> --}}
               <a href="{{route('view_books',Crypt::encrypt($pro->id))}}"> <img src="{{asset('/uploads/pages/'.$pro->file)}}"> </a>
             </div>
 
@@ -214,20 +211,13 @@ embed.slick-slide.slick-current.slick-active {
 
 @section('js')
 
+    <script>
 
-                    {{-- // con +="<div class='col-lg-3 col-md-4 col-sm-4 col-xs-12'><div class='swiper-slide'> <a if($pro->price == 0) onclick="readBook({{$pro->id}})" @else href="{{route('add_to_cart',Crypt::encrypt($pro->id))}}" @endif><img src='{{asset("uploads/pages/$pro->file")}}' class="img-fluid"></a>
-                    //         <h3>{{$pro->name}}</h3>
-                    //         <a href="{{route('view_books',Crypt::encrypt($pro->id))}}" class="cta-btn"> Read More </a>
-                    //     </div>
-                    // </div>"; --}}
-
-
-  <script>
-
-    $("#select_on_year").change(function(){
+   $("#select_on_year").change(function(){
 
         var asset = "{{ asset('') }}";
-
+        var route = "{{route('view_books')}}";
+        
         $.ajax({
           type: 'post',
           dataType: 'json',
@@ -243,12 +233,15 @@ embed.slick-slide.slick-current.slick-active {
 
             var product = jQuery.map(response.products, function(val) {
 
-                var setImg = asset + "uploads/pages/" + val.file;
-
+                var setImg = asset + "/uploads/pages/" + val.file;
+                
+                var setRoute = route+"/{{Crypt::encrypt('+val.id+')}}/"+val.id;
+                console.log(setRoute)
+                    
                 con +="<div class='col-lg-3 col-md-4 col-sm-4 col-xs-12'>"+
-                    "<div class='swiper-slide'> <a onclick='readBook("+val.id+")'>"+
+                    "<div class='swiper-slide'> <a href='"+setRoute+"'>"+
                     "<img src='"+setImg +"' class='img-fluid'></a><h3>"+val.name+"</h3>"+
-                    "<a href='{{route('view_books',Crypt::encrypt("+val.id+"))}}' class='cta-btn'> Read More </a>"+
+                    "<a href='"+setRoute+"' class='cta-btn'> Read More </a>"+
                     "</div></div>";
 
             });
@@ -259,4 +252,5 @@ embed.slick-slide.slick-current.slick-active {
     })
 
   </script>
+
 @endsection

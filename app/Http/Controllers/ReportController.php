@@ -32,13 +32,13 @@ class ReportController extends Controller
 
     public function manage_category()
     {
-        $category = category::where('is_deleted' , 0)->get();
+        $category = category::where('is_deleted' , 0)->orderBy('id', 'DESC')->get();
         return view('reports/manage_category')->with(compact('category'));
     }
     public function manage_product()
     {
-        $product = product::where('is_deleted' , 0)->get();
-        $category = category::where('is_deleted' , 0)->get();
+        $product = product::where('is_deleted' , 0)->orderBy('id', 'DESC')->get();
+        $category = category::where('is_deleted' , 0)->orderBy('id', 'DESC')->get();
         return view('reports/manage_product')->with(compact('product','category'));
     }
 
@@ -46,17 +46,17 @@ class ReportController extends Controller
     {
         $book = book::select('categories.name as cat_name', 'products.name as pro_name', 'books.*' )
         ->leftjoin('products', 'books.product_id', 'products.id')
-        ->leftjoin('categories', 'products.cat_id', 'categories.id')->where('books.is_deleted' , 0)->get();
+        ->leftjoin('categories', 'products.cat_id', 'categories.id')->where('books.is_deleted' , 0)->orderBy('books.id', 'DESC')->get();
 
         //dd($book);
-        $product = product::where('is_deleted' , 0)->get();
-        $category = category::where('is_deleted' , 0)->get();
+        $product = product::where('is_deleted' , 0)->orderBy('id', 'DESC')->get();
+        $category = category::where('is_deleted' , 0)->orderBy('id', 'DESC')->get();
         return view('reports/manage_book')->with(compact('product','category','book'));
     }
 
     public function add_product(){
-        $product = product::where('is_deleted' , 0)->get();
-        $category = category::where('is_deleted' , 0)->get();
+        $product = product::where('is_deleted' , 0)->orderBy('id', 'DESC')->get();
+        $category = category::where('is_deleted' , 0)->orderBy('id', 'DESC')->get();
         return view('reports/add_product')->with(compact('product','category'));
     }
 
@@ -69,8 +69,9 @@ class ReportController extends Controller
 
     public function manage_orders()
     {
-        $order_item = order_item::join('users', 'users.id', 'orders_items.user_id')->join('products', 'products.id', 'orders_items.product_id')->select("users.f_name", "users.l_name", "products.name", "products.price", "orders_items.id", "orders_items.qty", "orders_items.amount", "orders_items.status")->where('orders_items.is_deleted' , 0)->get();
+        $order_item = order_item::join('users', 'users.id', 'orders_items.user_id')->join('products', 'products.id', 'orders_items.product_id')->select("users.f_name", "users.l_name", "products.name", "products.price", "orders_items.id", "orders_items.qty", "orders_items.amount", "orders_items.status")->where('orders_items.is_deleted' , 0)->orderBy('orders_items.id', 'DESC')->get();
         $shipping_address = shipping_address::all();
+
         return view('reports/manage_orders')->with(compact('order_item', 'shipping_address'));
     }
 
@@ -99,7 +100,6 @@ class ReportController extends Controller
     public function purchased_product()
     {
         $order_item = order_item::where('orders_items.status' , "Delivered")->where('orders_items.is_active' , 1)->where('orders_items.user_id' , Auth::user()->id)->join('products','products.id','orders_items.id')->select("orders_items.id", "orders_items.product_id", "orders_items.qty", "orders_items.amount", "orders_items.created_at", "products.cat_id", "products.name", "products.description", "products.file", "products.year", "products.month", "products.price")->get();
-    // dd($order_item);
         $img = page_image::where('is_deleted' , 0)->get();
         return view('reports/manage_order-items')->with(compact('img','order_item'));
     }
@@ -113,7 +113,7 @@ class ReportController extends Controller
     		return redirect()->back()->with('error', 'No Page Found');
     	}
 
-        $all_user = User::where('is_deleted' , 0)->where('id' ,"!=", 1)->get();
+        $all_user = User::where('is_deleted' , 0)->where('id' ,"!=", 1)->orderBy('id', 'DESC')->get();
     	$designation = attributes::where("is_active" , 1)->get();
 
     	return view('reports/registered-user-report')->with(compact('all_user','user','designation'));
@@ -147,30 +147,6 @@ class ReportController extends Controller
         return view('reports/attendance-sheet-import')->with(compact('user'));
     }
 
-    /*
-    public function attendance_import_submit(Request $request)
-    {
-        if (!$request->has('file')) {
-            return redirect()->back()->with('error', 'No file is attached.');
-        }
-        $extensions = array("xls","xlsx");
-        $result = array($request->file('file')->getClientOriginalExtension());
-
-        if(in_array($result[0],$extensions)){
-            Excel::import(new AttendanceImport,request()->file('file'));
-            return redirect()->back()->with('message', 'Attendance Sheet has been uploaded successfully');
-        }else{
-           return redirect()->back()->with('error', 'Only xlsx extension is allowed.');
-        }
-    }
-
-    public function all_leave_application_report()
-    {
-        $project_id = Session::get("project_id");
-        $leave_application = leave_application::where("project_id" ,$project_id)->where("is_active" ,1)->where("is_deleted" ,0)->get();
-        return view('reports/all-leave-application-report')->with(compact('leave_application'));
-    }
-    */
 
     public function birthday_list()
     {

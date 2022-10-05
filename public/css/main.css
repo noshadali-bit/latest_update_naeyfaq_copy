@@ -46,7 +46,7 @@ File: Main Style
 - Flip Menu
 - ToDo App
 - Form Control
-- Sparkline Chart
+- Sparkline Chart 
 - Chartist Js
 - Height
 - Flot Chart
@@ -54,7 +54,7 @@ File: Main Style
 - Apex Chart
 - c3 Chart
 - Mail App
-- Notes App
+- Notes App 
 - Quill Editor
 - Upload Button Wrapper
 - Focus
@@ -5915,10 +5915,9 @@ path.domain {
     }
 }
 @media (max-width: 550px){
-.job-table.table-responsive {
-    overflow-x: auto;
-}
-
+    .job-table.table-responsive {
+        overflow-x: auto;
+    }
 }
 
 .addFile img.img-fluid {

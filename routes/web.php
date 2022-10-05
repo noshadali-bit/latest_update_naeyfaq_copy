@@ -41,9 +41,8 @@ Route::get('product-detail', [IndexController::class, 'product_detail'])->name('
 Route::get('about-us', [IndexController::class, 'about_us'])->name('about_us');
 Route::get('checkout/{id?}', [IndexController::class, 'checkout'])->name('checkout');
 Route::get('categories/{id?}', [IndexController::class, 'categories'])->name('categories');
-Route::get('view-books/{id?}', [IndexController::class, 'view_books'])->name('view_books');
+Route::get('view-books/{id?}/{pro?}', [IndexController::class, 'view_books'])->name('view_books');
 Route::post('search-on-year', [IndexController::class, 'search_on_year'])->name('search_on_year');
-
 
 Route::get('/manage-category', [ReportController::class, 'manage_category'])->name('manage_category');
 Route::get('/manage-product', [ReportController::class, 'manage_product'])->name('manage_product');

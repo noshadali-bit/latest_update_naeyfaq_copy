@@ -1,5 +1,10 @@
 <!-- <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" /> -->
 
+<!--Manage Products-->
+<link rel="stylesheet" href="{{ asset('vendors/datatable/css/dataTables.bootstrap4.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('vendors/datatable/buttons/css/buttons.bootstrap4.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('vendors/x-editable/css/bootstrap-editable.css') }}" />
+<!--Manage Products-->
 
 
 <!-- <link rel="icon" type="image/png" href="{{asset('/web/img/logo.png')}}" /> -->
