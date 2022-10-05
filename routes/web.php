@@ -202,7 +202,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/modalform', [GenericController::class, 'modalform'])->name('modalform');
 
 
-
     Route::get('/registered-user-report', [ReportController::class, 'registered_user_report'])->name('registered_user_report');
     Route::get('/all-user-report/{slug?}', [ReportController::class, 'all_registered_user_report'])->name('all_registered_user_report');
     Route::get('/attendance-sheet-import', [ReportController::class, 'attendance_sheet_import'])->name('attendance_sheet_import');
@@ -230,77 +229,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('save-msg', [ChatController::class, 'save_msg'])->name('save_msg');
     Route::post('fetch-messages', [ChatController::class, 'fetch_msg'])->name('fetch_msg');
 
-
-    Route::get('dashboard/job/get-started/{id?}', [CandidateController::class, 'step1_form'])->name('step1_form');
-    Route::get('dashboard/job/create/{id?}', [CandidateController::class, 'step2_form'])->name('step2_form');
-    Route::get('dashboard/job/include-details/{id?}', [CandidateController::class, 'step3_form'])->name('step3_form');
-    Route::get('dashboard/job/compensation-details/{id?}', [CandidateController::class, 'step4_form'])->name('step4_form');
-    Route::get('dashboard/job/job-description/{id?}', [CandidateController::class, 'step5_form'])->name('step5_form');
-    Route::get('dashboard/job/set-app-preferences/{id?}', [CandidateController::class, 'step6_form'])->name('step6_form');
-    Route::get('application', [CandidateController::class, 'candidate_form'])->name('candidate_form');
-    Route::get('dashboard/job/company-profile/{id?}', [CandidateController::class, 'company_profile'])->name('company_profile');
-    Route::post('dashboard/job/save', [CandidateController::class, 'job_create_save'])->name('job_create_save');
-    Route::post('dashboard/company/save', [CandidateController::class, 'company_create_save'])->name('company_create_save');
-    Route::post('dashboard/company/logo', [CandidateController::class, 'companylogo_submit'])->name('companylogo_submit');
-    Route::get('manage/jobs/{sort_by?}/{order_by?}', [CandidateController::class, 'job_display'])->name('job_display');
-    Route::get('all-candidates-display', [CandidateController::class , 'all_candidates_display'])->name('all_candidates_display');
-    Route::get('applicant-change-status', [CandidateController::class, 'applicant_change_status'])->name('applicant_change_status');
-    Route::get('all-candidate-details', [CandidateController::class, 'all_candidate_details'])->name('all_candidate_details');
-    Route::get('sechedule-interview', [CandidateController::class, 'sechedule_interview'])->name('sechedule_interview');
-    Route::post('save-notes', [CandidateController::class, 'save_notes'])->name('save_notes');
-    Route::get('candidate_delete', [CandidateController::class, 'candidate_delete'])->name('candidate_delete');
-    Route::get('candidate-interview-status', [CandidateController::class, 'candidate_interview_status'])->name('candidate_interview_status');
-    Route::get('archied-status', [CandidateController::class, 'archied_status'])->name('archied_status');
-    Route::get('unarchied-status', [CandidateController::class, 'unarchied_status'])->name('unarchied_status');
-    Route::get('withdraw-status', [CandidateController::class, 'withdraw_status'])->name('withdraw_status');
-    Route::post('report-job-status', [CandidateController::class, 'report_job_status'])->name('report_job_status');
-    Route::get('reviewd-application', [CandidateController::class, 'reviewd_application'])->name('reviewd_application');
-    Route::get('candidates/{id?}', [CandidateController::class, 'candidates_display'])->name('candidates_display');
-    Route::post('/job-applied-status', [CandidateController::class, 'job_applied_status'])->name('job_applied_status');
-    Route::post('/candidate_invite', [CandidateController::class, 'candidate_invite'])->name('candidate_invite');
-    Route::post('/job-mark-status', [CandidateController::class, 'job_mark_status'])->name('job_mark_status');
-    Route::post('/job-applied-delete', [CandidateController::class, 'job_applied_delete'])->name('job_applied_delete');
-    Route::post('/job-applied-interested', [CandidateController::class, 'job_applied_interested'])->name('job_applied_interested');
-    Route::post('/change-job-status', [CandidateController::class, 'change_job_status'])->name('change_job_status');
-    Route::get('/show_employee/{id?}/{job_id?}', [CandidateController::class, 'show_employee'])->name('show_employee');
-    Route::post('/company-data', [CandidateController::class, 'company_data'])->name('company_data');
-    Route::post('/candidate-message', [CandidateController::class, 'candidate_message'])->name('candidate_message');
-    Route::post('/candidate-message-tab', [CandidateController::class, 'candidate_message_tab'])->name('candidate_message_tab');
-    Route::post('/message-tab-close', [CandidateController::class, 'message_tab_close'])->name('message_tab_close');
-    Route::get('/employee-seen-message', [CandidateController::class, 'employee_seen_message'])->name('employee_seen_message');
-    Route::post('/save-job', [CandidateController::class, 'save_job'])->name('save_job');
-    Route::get('/applied-job-thank-you/{id?}', [CandidateController::class, 'applied_job_thank_you'])->name('applied_job_thank_you');
-    Route::get('view-all-resume', [CandidateController::class, 'view_all_resume'])->name('view_all_resume');
-    Route::post('job-status-change', [CandidateController::class, 'job_status_change'])->name('job_status_change');
-    Route::get('manage/job-response/{id?}', [CandidateController::class, 'job_response'])->name('job_response');
-    Route::get('marked-interviews/{id?}', [CandidateController::class, 'marked_interviews'])->name('marked_interviews');
-    Route::get('show-marked-interviews/{id?}', [CandidateController::class, 'show_marked_interviews'])->name('show_marked_interviews');
-    Route::post('update-marked-interviews/{id?}', [CandidateController::class, 'update_marked_interviews'])->name('update_marked_interviews');
-    Route::get('/user-profile', [CandidateController::class, 'userprofile'])->name('userprofile');
-    Route::post('ajx_candidate', [CandidateController::class, 'ajx_candidate'])->name('ajx_candidate');
-    Route::post('/remove-candidate', [CandidateController::class, 'remove_candidate'])->name('remove_candidate');
-    Route::get('manage/job-candidate/{id?}', [CandidateController::class, 'job_candidate'])->name('job_candidate');
-    Route::post('get-download', [CandidateController::class, 'get_download'])->name('get_download');
-    Route::get('applied-job-edit/{id?}', [CandidateController::class, 'applied_job_edit'])->name('applied_job_edit');
-    Route::post('applied-job-update', [CandidateController::class, 'applied_job_update'])->name('applied_job_update');
-    Route::get('dashboard/job-edit/{id?}', [CandidateController::class, 'job_edit'])->name('job_edit');
-    Route::get('/upload-resume', [CandidateController::class, 'upload_resume'])->name('upload_resume');
-    Route::post('/upload-resume-submit', [CandidateController::class, 'upload_resume_submit'])->name('upload_resume_submit');
-    Route::get('apply-job/{id?}', [CandidateController::class, 'apply_job'])->name('apply_job');
-    Route::post('job-applied', [CandidateController::class, 'job_applied'])->name('job_applied');
-    Route::post('resume-upload-submit', [CandidateController::class, 'resume_upload_submit'])->name('resume_upload_submit');
-    Route::post('resume-privacy-setting', [CandidateController::class, 'resume_privacy_setting'])->name('resume_privacy_setting');
-
-
-    Route::get('/edit-job_status/{id?}', [CandidateController::class, 'job_status_edit'])->name('job_status_edit');
-    Route::post('/job_status_update', [CandidateController::class, 'job_status_update'])->name('job_status_update');
-    // Manage resume
-    Route::get('/manage-resume', [CandidateController::class, 'manage_resume'])->name('manage_resume');
-    Route::get('user-chat-connection', [CandidateController::class, 'user_chat_connection'])->name('user_chat_connection');
-
-
-    // review last step
-    Route::post('/reviews-save2', [CandidateController::class, 'reviews_save2'])->name('reviews_save2');
 
     // Configuration
     Route::get('configure-settings', [HomeController::class, 'config'])->name('config');
