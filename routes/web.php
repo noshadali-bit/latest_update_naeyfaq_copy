@@ -48,49 +48,49 @@ Route::get('/blogs', [IndexController::class, 'blogs'])->name('blogs');
 Route::get('/blogs-detail/{id?}', [IndexController::class, 'blogs_detail'])->name('blogs_detail');
 Route::post('search-detail', [IndexController::class, 'search_detail'])->name('search_detail');
 Route::get('/about-us', [IndexController::class, 'about_us'])->name('about_us');
-Route::get('thankyou', [IndexController::class, 'thank_you_review'])->name('thank_you_review');
-Route::get('got-a-job', [IndexController::class, 'got_a_job'])->name('got_a_job');
-Route::post('stories-submit', [IndexController::class, 'stories_submit'])->name('stories_submit');
-Route::get('my-job', [IndexController::class, 'my_job'])->name('my_job');
-Route::post('interview-confirm', [IndexController::class, 'interview_confirm'])->name('interview_confirm');
-Route::post('interview-declined', [IndexController::class, 'interview_declined'])->name('interview_declined');
-Route::get('help-center', [IndexController::class, 'help_center'])->name('help_center');
-Route::get('getting-started', [IndexController::class, 'getting_started'])->name('getting_started');
-Route::get('submit-request', [IndexController::class, 'submit_request'])->name('submit_request');
-Route::get('not-employer', [IndexController::class, 'not_employer'])->name('not_employer');
-Route::get('personal-info', [IndexController::class, 'personal_info'])->name('personal_info');
-Route::get('personal-data', [IndexController::class, 'personal_data'])->name('personal_data');
-Route::get('help-center-employee', [IndexController::class, 'help_center_employee'])->name('help_center_employee');
-Route::get('explore-stories', [IndexController::class, 'explore_stories'])->name('explore_stories');
-Route::get('share-your-story', [IndexController::class, 'share_your_story'])->name('share_your_story');
-Route::get('stories', [IndexController::class, 'stories'])->name('stories');
-Route::get('submit-employer-request', [IndexController::class, 'submit_employer_request'])->name('submit_employer_request');
-Route::get('thank-you', [IndexController::class, 'thank_you_for_upload'])->name('thank_you_for_upload');
+// Route::get('thankyou', [IndexController::class, 'thank_you_review'])->name('thank_you_review');
+// Route::get('got-a-job', [IndexController::class, 'got_a_job'])->name('got_a_job');
+// Route::post('stories-submit', [IndexController::class, 'stories_submit'])->name('stories_submit');
+// Route::get('my-job', [IndexController::class, 'my_job'])->name('my_job');
+// Route::post('interview-confirm', [IndexController::class, 'interview_confirm'])->name('interview_confirm');
+// Route::post('interview-declined', [IndexController::class, 'interview_declined'])->name('interview_declined');
+// Route::get('help-center', [IndexController::class, 'help_center'])->name('help_center');
+// Route::get('getting-started', [IndexController::class, 'getting_started'])->name('getting_started');
+// Route::get('submit-request', [IndexController::class, 'submit_request'])->name('submit_request');
+// Route::get('not-employer', [IndexController::class, 'not_employer'])->name('not_employer');
+// Route::get('personal-info', [IndexController::class, 'personal_info'])->name('personal_info');
+// Route::get('personal-data', [IndexController::class, 'personal_data'])->name('personal_data');
+// Route::get('help-center-employee', [IndexController::class, 'help_center_employee'])->name('help_center_employee');
+// Route::get('explore-stories', [IndexController::class, 'explore_stories'])->name('explore_stories');
+// Route::get('share-your-story', [IndexController::class, 'share_your_story'])->name('share_your_story');
+// Route::get('stories', [IndexController::class, 'stories'])->name('stories');
+// Route::get('submit-employer-request', [IndexController::class, 'submit_employer_request'])->name('submit_employer_request');
+// Route::get('thank-you', [IndexController::class, 'thank_you_for_upload'])->name('thank_you_for_upload');
+// Route::get('/popular-companies', [IndexController::class, 'popular_companies'])->name('popular_companies');
+// Route::get('/view-reviews/{slug?}', [IndexController::class, 'view_reviews'])->name('view_reviews');
+// Route::get('/terms-and-condition', [IndexController::class, 'terms'])->name('terms');
+// Route::get('/Privacy-Policy', [IndexController::class, 'policy'])->name('policy');
+// Route::post('/bulk-open', [IndexController::class, 'bulk_open'])->name('bulk_open');
+// Route::get('/career', [IndexController::class, 'career'])->name('career');
+// Route::get('/matches', [IndexController::class, 'matches'])->name('matches');
+// Route::get('/news-detail/{slug?}', [IndexController::class, 'news_detail'])->name('news_detail');
+// Route::post('contact_submit', [IndexController::class, 'contact_submit'])->name('contact_submit');
+// Route::post('/newsletter-submit', [IndexController::class, 'newsletter_submit'])->name('newsletter_submit');
 Route::get('/check_login/{email?}/{name?}', [IndexController::class, 'check_login'])->name('check_login');
-Route::get('/popular-companies', [IndexController::class, 'popular_companies'])->name('popular_companies');
-Route::get('/view-reviews/{slug?}', [IndexController::class, 'view_reviews'])->name('view_reviews');
-Route::get('/terms-and-condition', [IndexController::class, 'terms'])->name('terms');
-Route::get('/Privacy-Policy', [IndexController::class, 'policy'])->name('policy');
 Route::get('/contact-us', [IndexController::class, 'contact_us'])->name('contact_us');
-Route::post('/bulk-open', [IndexController::class, 'bulk_open'])->name('bulk_open');
-Route::get('/career', [IndexController::class, 'career'])->name('career');
-Route::get('/matches', [IndexController::class, 'matches'])->name('matches');
-Route::get('/news-detail/{slug?}', [IndexController::class, 'news_detail'])->name('news_detail');
 Route::get('/signin', [IndexController::class, 'signup_login'])->name('signup_login');
-Route::post('contact_submit', [IndexController::class, 'contact_submit'])->name('contact_submit');
-Route::post('/newsletter-submit', [IndexController::class, 'newsletter_submit'])->name('newsletter_submit');
 Route::get('/signup', [IndexController::class, 'signup'])->name('signup');
-Route::get('job-details/{id?}', [IndexController::class, 'job_details'])->name('job_details');
 Route::post('user-search', [IndexController::class, 'user_search'])->name('user_search');
-Route::get('view-applied-jobs/{id}', [IndexController::class, 'view_applied_jobs'])->name('view_applied_jobs');
-Route::get('job-close', [IndexController::class, 'job_close'])->name('job_close');
-Route::get('send-interview-feedback', [IndexController::class, 'send_interview_feedback'])->name('send_interview_feedback');
-Route::get('/feedback-reply/{id?}', [IndexController::class, 'feedback_reply'])->name('feedback_reply');
-Route::get('/company-reviews/{id?}', [IndexController::class, 'company_reviews'])->name('company_reviews');
-Route::get('/company-reviews-step2/{id?}', [IndexController::class, 'company_reviews_step2'])->name('company_reviews_step2');
-Route::get('/company-reviews-step3/{id?}', [IndexController::class, 'company_reviews_step3'])->name('company_reviews_step3');
-Route::post('/reviews-save', [IndexController::class, 'reviews_save'])->name('reviews_save');
-Route::get('confirm-review/{id}/{email}', [IndexController::class, 'confirm_review'])->name('confirm_review');
+// Route::get('job-details/{id?}', [IndexController::class, 'job_details'])->name('job_details');
+// Route::get('view-applied-jobs/{id}', [IndexController::class, 'view_applied_jobs'])->name('view_applied_jobs');
+// Route::get('job-close', [IndexController::class, 'job_close'])->name('job_close');
+// Route::get('send-interview-feedback', [IndexController::class, 'send_interview_feedback'])->name('send_interview_feedback');
+// Route::get('/feedback-reply/{id?}', [IndexController::class, 'feedback_reply'])->name('feedback_reply');
+// Route::get('/company-reviews/{id?}', [IndexController::class, 'company_reviews'])->name('company_reviews');
+// Route::get('/company-reviews-step2/{id?}', [IndexController::class, 'company_reviews_step2'])->name('company_reviews_step2');
+// Route::get('/company-reviews-step3/{id?}', [IndexController::class, 'company_reviews_step3'])->name('company_reviews_step3');
+// Route::post('/reviews-save', [IndexController::class, 'reviews_save'])->name('reviews_save');
+// Route::get('confirm-review/{id}/{email}', [IndexController::class, 'confirm_review'])->name('confirm_review');
 
 
 Route::group(['middleware' => 'admin_role'], function () {
@@ -137,19 +137,18 @@ Route::get('/email-verify-for-comment/{id?}', [HomeController::class, 'email_ver
 Route::post('/send-comment', [HomeController::class, 'send_comment'])->name('send_comment');
 
 
-Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('redirectToGoogle');
-Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('handleGoogleCallback');
-Route::get('dropbox', [GoogleController::class, 'dropbox'])->name('dropbox');
-Route::get('auth/graph', [GoogleController::class, 'redirectToProvider'])->name('redirectToProvider');
-Route::get('uth/graph/callback', [GoogleController::class, 'handleProviderCallback'])->name('handleProviderCallback');
+// Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('redirectToGoogle');
+// Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('handleGoogleCallback');
+// Route::get('dropbox', [GoogleController::class, 'dropbox'])->name('dropbox');
+// Route::get('auth/graph', [GoogleController::class, 'redirectToProvider'])->name('redirectToProvider');
+// Route::get('uth/graph/callback', [GoogleController::class, 'handleProviderCallback'])->name('handleProviderCallback');
 
 
-Route::get('/microsoft_login', [MicrosoftController::class, 'microsoft_login'])->name('microsoft_login');
-Route::get('/microsoft_callback', [MicrosoftController::class, 'microsoft_callback'])->name('microsoft_callback');
+// Route::get('/microsoft_login', [MicrosoftController::class, 'microsoft_login'])->name('microsoft_login');
+// Route::get('/microsoft_callback', [MicrosoftController::class, 'microsoft_callback'])->name('microsoft_callback');
 
-Route::get('/auth', [FaceBookController::class, 'loginUsingFacebook'])->name('facebook_login');
-Route::get('/callback', [FaceBookController::class, 'callbackFromFacebook'])->name('callback');
-
+// Route::get('/auth', [FaceBookController::class, 'loginUsingFacebook'])->name('facebook_login');
+// Route::get('/callback', [FaceBookController::class, 'callbackFromFacebook'])->name('callback');
 
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
@@ -158,13 +157,12 @@ Route::get('/clear-cache', function () {
     return "Cache is cleared";
 });
 
-
 // Reviews
 // Review End
 
-Route::post('/employee-registration-submit', [RegistrationController::class, 'registration_submit'])->name('registration_submit');
-Route::get('confirm-email/{id}/{email}', [RegistrationController::class, 'confirm_email'])->name('confirm_email');
-Route::post('validator', [RegistrationController::class, 'validator_check'])->name('validator_check');
+// Route::post('/employee-registration-submit', [RegistrationController::class, 'registration_submit'])->name('registration_submit');
+// Route::get('confirm-email/{id}/{email}', [RegistrationController::class, 'confirm_email'])->name('confirm_email');
+// Route::post('validator', [RegistrationController::class, 'validator_check'])->name('validator_check');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [HomeController::class, 'user_profile'])->name('user_profile');
@@ -195,39 +193,39 @@ Route::group(['middleware' => 'auth'], function () {
     Route::any('/destroy_blog/{id?}', [BlogController::class, 'blogs_destroy'])->name('blogs_destroy');
     Route::get('/status-blogs', [BlogController::class, 'blogs_status'])->name('blogs_status');
 
-    Route::get('/add-applicant', [HomeController::class, 'add_applicant'])->name('add_applicant');
+    // Route::get('/add-applicant', [HomeController::class, 'add_applicant'])->name('add_applicant');
 
 
-    Route::post('/cms_create', [GenericController::class, 'cms_generator'])->name('cms_generator');
-    Route::post('/modalform', [GenericController::class, 'modalform'])->name('modalform');
+    // Route::post('/cms_create', [GenericController::class, 'cms_generator'])->name('cms_generator');
+    // Route::post('/modalform', [GenericController::class, 'modalform'])->name('modalform');
 
 
     Route::get('/registered-user-report', [ReportController::class, 'registered_user_report'])->name('registered_user_report');
     Route::get('/all-user-report/{slug?}', [ReportController::class, 'all_registered_user_report'])->name('all_registered_user_report');
-    Route::get('/attendance-sheet-import', [ReportController::class, 'attendance_sheet_import'])->name('attendance_sheet_import');
-    Route::post('attendance-import-submit', [ReportController::class, 'attendance_import_submit'])->name('attendance_import_submit');
-    Route::get('/all-leave-application-report', [ReportController::class, 'all_leave_application_report'])->name('all_leave_application_report');
-    Route::get('/birthday-list', [ReportController::class, 'birthday_list'])->name('birthday_list');
+    // Route::get('/attendance-sheet-import', [ReportController::class, 'attendance_sheet_import'])->name('attendance_sheet_import');
+    // Route::post('attendance-import-submit', [ReportController::class, 'attendance_import_submit'])->name('attendance_import_submit');
+    // Route::get('/all-leave-application-report', [ReportController::class, 'all_leave_application_report'])->name('all_leave_application_report');
+    // Route::get('/birthday-list', [ReportController::class, 'birthday_list'])->name('birthday_list');
     // Reports Routes End
     Route::get('/attributes', [GenericController::class, 'roles'])->name('roles');
     Route::get('/attribute/{slug}', [GenericController::class, 'listing'])->name('listing');
-    Route::get('/report/{slug}', [GenericController::class, 'report_user'])->name('report_user');
-    Route::post('/custom-report', [GenericController::class, 'custom_report'])->name('custom_report');
-    Route::get('/custom-report/{slug}/{slug2}', [GenericController::class, 'custom_report_user'])->name('custom_report_user');
-    Route::post('/generic-submit', [GenericController::class, 'generic_submit'])->name('generic_submit');
+    // Route::get('/report/{slug}', [GenericController::class, 'report_user'])->name('report_user');
+    // Route::post('/custom-report', [GenericController::class, 'custom_report'])->name('custom_report');
+    // Route::get('/custom-report/{slug}/{slug2}', [GenericController::class, 'custom_report_user'])->name('custom_report_user');
+    // Route::post('/generic-submit', [GenericController::class, 'generic_submit'])->name('generic_submit');
     Route::post('/assign-role-submit', [GenericController::class, 'roleassign_submit'])->name('roleassign_submit');
     Route::post('/role-assign-modal', [GenericController::class, 'role_assign_modal'])->name('role_assign_modal');
     // Payroll Routes
-    Route::get('/payroller', [PayrollController::class, 'payroller'])->name('payroller');
-    Route::post('/payroll-month-report', [PayrollController::class, 'payroll_month_report'])->name('payroll_month_report');
-    Route::get('/payslips', [PayrollController::class, 'payslips'])->name('payslips');
-    Route::get('/view-payslip/{id}', [PayrollController::class, 'view_payslip'])->name('view_payslip');
-    Route::post('/payslip-generate', [PayrollController::class, 'payslip_generate'])->name('payslip_generate');
+    // Route::get('/payroller', [PayrollController::class, 'payroller'])->name('payroller');
+    // Route::post('/payroll-month-report', [PayrollController::class, 'payroll_month_report'])->name('payroll_month_report');
+    // Route::get('/payslips', [PayrollController::class, 'payslips'])->name('payslips');
+    // Route::get('/view-payslip/{id}', [PayrollController::class, 'view_payslip'])->name('view_payslip');
+    // Route::post('/payslip-generate', [PayrollController::class, 'payslip_generate'])->name('payslip_generate');
     // Payroll Routes End
     // Chat Room
-    Route::get('chat', [ChatController::class, 'chat'])->name('chat');
-    Route::post('save-msg', [ChatController::class, 'save_msg'])->name('save_msg');
-    Route::post('fetch-messages', [ChatController::class, 'fetch_msg'])->name('fetch_msg');
+    // Route::get('chat', [ChatController::class, 'chat'])->name('chat');
+    // Route::post('save-msg', [ChatController::class, 'save_msg'])->name('save_msg');
+    // Route::post('fetch-messages', [ChatController::class, 'fetch_msg'])->name('fetch_msg');
 
 
     // Configuration
