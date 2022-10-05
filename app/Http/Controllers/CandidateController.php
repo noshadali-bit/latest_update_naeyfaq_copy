@@ -115,7 +115,6 @@ class CandidateController extends Controller
         );
         $data2 = array("Academic Adviser", "Academic Support Coordinator", "Administrator", "Admissions Assistant", "Admissions Representative", "Adjunct Professor", "Adviser", "After-School Program Aide", "After-School Program Coordinator", "Assistant Coach", "Assistant Dean", "Assistant Instructor", "Assistant Principal", "Assistant Preschool Teacher", "Assistant Professor", "Assistant Registrar", "Assistant Teacher", "Associate Dean", "Associate Professor", "Career Counselor", "Child Care Assistant", "Child Care Center Teacher", "Coach", "Crossing Guard", "Day Care Assistant", "Day Care Center Teacher", "Dean", "Driver Education Teacher", "Education Coordinator", "Education Specialist", "Education Technician", "Educator", "Financial Aid Administrator", "Food Service Aide", "Food Service Coordinator", "Food Service Manager", "Guidance Counselor", "Instructor", "Instructional Assistant", "Lead Teacher", "Lunch Monitor", "Preschool Assistant Teacher", "Preschool Director", "Preschool Group Leader", "Preschool Lead Teacher", "Preschool Specialist", "Preschool Teacher", "Principal", "Program Assistant", "Program Coordinator", "Registrar", "Residence Hall Manager", "Resource Development Coordinator", "School Administrator", "School Bus Driver", "School Counselor", "School Librarian", "School Nurse", "School Psychologist", "School Secretary", "School Social Worker", "Special Education Assistant", "Special Education Coordinator", "Substitute Teacher", "Superintendent", "Superintendent of Schools", "Teacher", "Teacher Aide", "Teacher Assistant", "Teaching Assistant", "Tutor", "Youth Care Worker",);
         return view('web.dashboard.create-job')->with('title', "Create Job")->with(compact('job', 'data', 'data2'));
-        //return view('web.createjob')->with('title',"Create Job")->with(compact('job','data'));
     }
 
     public function view_all_resume()
@@ -240,21 +239,7 @@ class CandidateController extends Controller
             if ($_POST['step_filled'] == 2) {
                 $resp['location'] = route('step4_form', $job_id);
             }
-            // if ($_POST['step_filled'] == 2) {
-            //     $resp['location'] = route('step2_form',$job_id);
-            // }
             if ($_POST['step_filled'] == 3) {
-                // $jobs = jobs::find($id);
-                // $resp['checker'] = 3;
-                // $resp['title'] = $jobs->job_title;
-                // $resp['email'] = Auth::user()->email;
-                // $resp['company_name'] = $jobs->company_name;
-                // $resp['salary'] = "Starting from (".$jobs->currency.")".$jobs->starting_salary." to ".$jobs->currency."(".$jobs->ending_salary.")";
-                // $resp['summary'] = $jobs->summary;
-                // $resp['skills'] = $jobs->skills;
-                // $resp['company_description'] = $jobs->company_description;
-                // $resp['employment_type'] = $jobs->employment_type;
-                // $resp['compensation'] = $jobs->compensation;
                 $resp['location'] = route('step5_form', $job_id);
             }
             if ($_POST['step_filled'] == 4) {
@@ -267,7 +252,6 @@ class CandidateController extends Controller
                 return redirect()->route('job_display')->with('message', 'Success : Update Successfully');
             }
             if ($_POST['step_filled'] == 6 && $_POST['action'] = 'review') {
-                // dd(1);
                 return redirect()->route('job_edit', $job_id . '?action=review')->with('message', 'Success : Update Successfully');
             }
             if ($_POST['step_filled'] == 6 && $_POST['action'] = 'view') {
@@ -517,18 +501,11 @@ class CandidateController extends Controller
 
     public function job_display($sort_by = null, $order_by = null)
     {
-        // dd(1);
 
         $user = Auth::user();
-
         $sort_by_ = (string)(isset($sort_by) ? $sort_by : 'id');
-
         $order_by_ =  (string)(isset($order_by) ? $order_by : 'desc');
-
-        //dd($sort_by_);
-
         $getUserForJob = [];
-
         $data = [];
 
         if ($user) {
@@ -557,17 +534,12 @@ class CandidateController extends Controller
             $open_jobs    = jobs::where("is_confirm", 1)->where("is_active", 1)->where("user_id", $user->id)->where("status", "Open")->count();
             $pending_jobs = jobs::where("is_confirm", 1)->where("is_active", 1)->where("user_id", $user->id)->where("status", "Pending")->count();
             $paused_jobs  = jobs::where("is_confirm", 1)->where("is_active", 1)->where("user_id", $user->id)->where("status", "Paused")->count();
-            //$closed_jobs_  = jobs::where("is_confirm", 1)->where("is_active", 1)->where("status", "Closed")->count();
 
             $get_job_title = jobs::where("is_active", 1)->where("user_id", $user->id)->orderby("id", 'desc')->first();
 
             if ($get_job_title) {
                 $getUserForJob = DB::table('users')->Where('skill', 'LIKE', '%' . $get_job_title->job_title . '%')->where('role_type', 'Employee')->limit(6)->get();
             }
-
-            // echo "<pre>";
-            // print_r($getUserForJob);
-            // echo "</pre>";
 
         } else {
 
@@ -583,7 +555,6 @@ class CandidateController extends Controller
         $data = array();
         $data2 = array();
 
-        //dd($request->id);
         $job_inquiry = job_inquiry::where("job_id", $request->id)->where("is_active", 1)->orderby("id", 'desc')->get();
 
         $Contacting = job_inquiry::where("job_id", $request->id)->where("status", "Contacting")->where("is_active", 1)->count();
@@ -602,8 +573,6 @@ class CandidateController extends Controller
             $messages_count = $job_post->messages_count($job_post->id, Auth::user()->id, $val->user_id);
 
             $parameter = Crypt::encrypt($val->id);
-
-            //$hiring = $val->job_post($val->id);
 
             $data[$key]['messages_count'] = $messages_count;
             $data[$key]['apply_job_active_candidate'] = $apply_job_active_candidate;
@@ -646,8 +615,6 @@ class CandidateController extends Controller
 
         $data2['getUser'] = $baseQuery->get();
 
-        //$data2['getlimitUser'] = $baseQuery->limit(6)->get();
-
         $data2['getlimitUser'] = $baseQuery->offset(0)->limit(6)->get();
 
         $data2['Contacting'] = $Contacting;
@@ -686,15 +653,11 @@ class CandidateController extends Controller
 
         $jobs =  jobs::where('id', $job_inquiry->job_id)->first();
 
-        //dd($job_inquiry);
-
         return view('web.candidateDetail')->with(compact('user', 'job_inquiry', 'jobs'));
     }
 
     public function candidates_display($id = '')
     {
-
-        // dd(1);
         $job = null;
         if ($id != "") {
             try {
@@ -934,7 +897,6 @@ class CandidateController extends Controller
                 $data = curl_exec($ch);
                 $error = curl_error($ch);
                 curl_close($ch);
-                //$path = asset('uploads/resume/'.$filename);
                 $path = 'uploads/resume/' . $filename . "_" . time() . "." . $file_ext;
                 file_put_contents("public/" . $path, $data);
                 $user->resume_doc = $path;
@@ -972,7 +934,6 @@ class CandidateController extends Controller
                 return redirect()->back()->with('error', 'Format not allowed');
             }
         }
-        //$user->resume_doc=$request->hasFile('myFile');
         if ($request->hasFile('myFile')) {
             $filename = $request->myFile->getClientOriginalName();
             $path = $request->myFile->storeAs('uploads/resume', $filename, 'public');
@@ -1128,7 +1089,6 @@ class CandidateController extends Controller
             $resp['status'] = 1;
             $resp['message'] = "Status has been updated";
             $resp['status_'] = $request->status;
-            // $resp['location'] = route('candidates_display',$_POST['job_post_id'].$job_get_url);
             $resp['location'] = $job_get_url;
             return json_encode($resp);
         } else {
@@ -1204,7 +1164,6 @@ class CandidateController extends Controller
         if ($interviews) {
             $resp['status'] = 1;
             $resp['message'] = "Status Has Been Updated";
-            // $resp['location'] = route('candidates_display',$_POST['job_post_id'].$job_get_url);
             $resp['location'] = $job_get_url;
             return json_encode($resp);
         } else {
@@ -1214,7 +1173,6 @@ class CandidateController extends Controller
 
     public function job_applied_delete(Request $request)
     {
-        // dd($_POST);
         if (isset($_POST['job_get'])) {
             $job_get_url = "?action=" . $_POST['job_get'];
         } else {
@@ -1264,7 +1222,8 @@ class CandidateController extends Controller
 
     public function job_applied_interested(Request $request)
     {
-       $job_post_id = Crypt::decrypt($_POST['job_post_id']);
+
+        $job_post_id = Crypt::decrypt($_POST['job_post_id']);
         $job_inquiry = job_inquiry::find($request->job_id);
         $job_inquiry->is_interested = $request->status;
         $job_inquiry->save();
@@ -1284,12 +1243,13 @@ class CandidateController extends Controller
             }
             $resp['status'] = 1;
             $resp['message'] = "Interested Record has Been Updated";
-
             return json_encode($resp);
+
         } else {
             return redirect()->back()->with('error', 'Due To Error Record Has Been Not Interested');
         }
     }
+
 
     public function resume_upload_submit(Request $request)
     {
@@ -1309,7 +1269,6 @@ class CandidateController extends Controller
 
     public function reviews_save2(Request $request)
     {
-        // dd(1);
         if (isset($_POST['review_id']) && $_POST['review_id'] != "") {
             $id = Crypt::decrypt($_POST['review_id']);
             $token_ignore = ['_token' => '', 'review_id' => ''];
@@ -1327,7 +1286,6 @@ class CandidateController extends Controller
                 $resp['location'] = route('company_reviews_step3', $review_id);
             }
             if ($_POST['step_filled'] == 3) {
-                // $resp['location'] = route('welcome');
                 Session::forget('review_id');
                 // Send Mail
                 $reviews_data = reviews::where('id', $id)->first();
@@ -1345,11 +1303,7 @@ class CandidateController extends Controller
                 ];
                 // admin email
                 $config = config::find(2);
-                // dd($details,$config['value']);
                 $data = Mail::to($config['value'])->send(new MailReview($details));
-
-                //Mail::to('digitonics.developer.454@gmail.com')->send(new MailReview($details));
-                // Send Mail
 
                 return redirect()->route('thank_you_review');
             }
@@ -1364,7 +1318,6 @@ class CandidateController extends Controller
         $user = Auth::user();
         $states = states::where("is_active", 1)->where('is_deleted', 0)->get();
         if ($user) {
-            //return view('web.dashboard.user-profile')->with('title', "User Profile")->with(compact('user', 'states'));
             return view('user-profile')->with('title', "User Profile")->with(compact('user', 'states'));
         } else {
             return redirect()->route("welcome");
@@ -1505,7 +1458,6 @@ class CandidateController extends Controller
                             </div>
                             </div><td></td>';
         }
-        // dd($action);
         echo json_encode(array(
             "success" => 1,
             "html" => $options
@@ -1528,7 +1480,6 @@ class CandidateController extends Controller
             if ($invite_job) {
                 $resp['status'] = 1;
                 $resp['message'] = "This candidate successfully invite.";
-                // $resp['location'] = $job_get_url;
                 return json_encode($resp);
             } else {
                 $resp['status'] = 0;
@@ -1566,11 +1517,7 @@ class CandidateController extends Controller
 
         $user = Auth::user();
 
-        //dd($inq_id);
-
         $job_inquiry =  job_inquiry::where("id", $inq_id)->where("is_active", 1)->first();
-
-        //dd($job_inquiry->job_id);
 
         $thread_messages = thread_messages::select('message', 'sender_id', 'receiver_id', 'created_at', 'has_file')->where('is_active', 1)->where('order_id', $inq_id)->get();
 
@@ -1578,8 +1525,6 @@ class CandidateController extends Controller
         $reserved_info = "";
 
         if ($user) {
-
-            //dd($thread_messages);
 
             foreach ($thread_messages as $value) {
 
@@ -1607,19 +1552,10 @@ class CandidateController extends Controller
                         $msg_body = $msg_body . '<p class="m-0">' . $value->message . '</p>
                                         </div>';
                     } else {
-                        // $path = asset('/Uploads/user_chat_attachment/'.$value->message);
-                        // $msg_body = $msg_body . '<p class="m-0"><a href="'.$path.'" target="_blank">Open attached file : '.$value->message.'</a></p>
-                        // </div>';
                     }
-                    //$msg_body = $msg_body . "<p class='profilePicture' data-letters='' ><span style='display: none;' id='userName' class='dropdown-toggle userName'>".$name."</span></p>";
                     $msg_body = $msg_body . "<img class='avatar-sm rounded-circle ml-3' src='" . $logo . "' alt='alt' style='width: 36px; height: 36px;'/>";
                     $msg_body = $msg_body . '</div>';
                 } else {
-                    // if ($value->sender->profile_pic != "") {
-                    //     $logo = asset($value->sender->profile_pic);
-                    // } else {
-                    //     $logo = asset('images/no-img.png');
-                    // }
                     // Receiver Member
                     if ($value->sender->profile_pic != "") {
                         $logo = asset($value->sender->profile_pic);
@@ -1628,11 +1564,7 @@ class CandidateController extends Controller
                     }
                     $name = $value->sender->name;
                     $msg_body = $msg_body . "<div class='d-flex mb-4 user'>";
-                    //if($value->sender->type == 2){
                     $msg_body = $msg_body . "<img class='avatar-sm rounded-circle ml-3' src='" . $logo . "' alt='alt' style='width: 36px; height: 36px;'/>";
-                    // }else{
-                    //     $msg_body = $msg_body . "<p class='profilePicture' data-letters='' ><span style='display: none;' id='userName' class='dropdown-toggle userName'>".$name."</span></p>";
-                    // }
                     $msg_body = $msg_body . "<div class='message flex-grow-1'>
                                             <div class='d-flex'>
                                                 <p class='mb-1 text-title text-16 flex-grow-1'>" . $name . "</p><span class='text-small text-muted'>" . $value->created_at->diffForHumans() . "</span>
@@ -1640,9 +1572,6 @@ class CandidateController extends Controller
 
                     if ($value->has_file == 0) {
                         $msg_body = $msg_body . '<p class="m-0">' . $value->message . '</p>';
-                    } else {
-                        // $path = asset('/Uploads/user_chat_attachment/'.$value->message);
-                        // $msg_body = $msg_body . '<p class="m-0"><a href="'.$path.'" target="_blank">Open attached file : '.$value->message.'</a></p>';
                     }
                     $msg_body = $msg_body . "</div>
                                     </div>";
@@ -1691,13 +1620,9 @@ class CandidateController extends Controller
 
         }
 
-        //dd($inq_id);
-
         $job_inquiry = job_inquiry::where("id", $inq_id)->where("is_active", 1)->first();
 
         $user_detail = User::where("id", $other_user_id)->where("is_active", 1)->first();
-
-        // dd($job_inquiry->job_id);
 
         $thread_messages = thread_messages::select('message', 'sender_id', 'receiver_id', 'created_at', 'has_file')->where('is_active', 1)->where('order_id', $inq_id)->get();
 
@@ -1729,8 +1654,6 @@ class CandidateController extends Controller
                         $logo = asset('images/default2-1-1.jpg');
                     }
 
-
-
                     $msg_body = $msg_body ."<div class='message-box-holder'>";
                             $msg_body = $msg_body ."<div class='message-box'>";
 
@@ -1742,8 +1665,6 @@ class CandidateController extends Controller
 
                             $msg_body = $msg_body ."</div>";
                         $msg_body = $msg_body ."</div>";
-
-
 
                 }else{
 
@@ -1759,11 +1680,8 @@ class CandidateController extends Controller
                     }
 
                     $msg_body = $msg_body . '<div class="message-box-holder">';
-
                     $msg_body = $msg_body . '<div class="message-sender">'. $name . '</div>';
-
                     $msg_body = $msg_body . '<div class="message-box message-partner">'. $value->message   .'</div>';
-
                     $msg_body = $msg_body . '</div>';
 
                 }
@@ -1782,17 +1700,11 @@ class CandidateController extends Controller
         }
 
         $resp['user'] = $user;
-
         $resp['thread_messages'] = $thread_messages;
-
         $resp['msg_body'] = $msg_body;
-
         $resp['user_detail'] = $user_detail;
-
         $resp['chat_box_id'] = isset($get_chat_box) ? $get_chat_box : $get_old_data;
-
         $resp['unread_messages_count'] = $unread_messages_count;
-
         $resp['logo_2'] = $logo_2;
 
         return json_encode($resp);
@@ -1802,11 +1714,9 @@ class CandidateController extends Controller
     public function message_tab_close(Request $request)
     {
         $resp = array();
-
         $get_chat_box = $request->get_chat_box;
 
         chat_box::where('id',$get_chat_box)->delete();
-
         $resp['success'] = "Tab Close";
 
         return json_encode($resp);

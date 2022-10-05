@@ -26,7 +26,7 @@ class admin_role
             return $next($request);
 
 
-        return redirect('login');
+        return redirect('user_profile');
 
     }
 }
