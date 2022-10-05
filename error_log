@@ -1,0 +1,34 @@
+[06-May-2021 17:09:10 America/Chicago] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.3.0". You are running 7.2.34. in /home1/democreativewebs/public_html/hrm/vendor/composer/platform_check.php on line 24
+[26-Apr-2022 19:47:21 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:47:21 UTC] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'nsandhu'@'localhost' (using password: NO) in /home/y44zm4vhop31/public_html/sqlmini.php on line 564
+[26-Apr-2022 19:47:21 UTC] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'nsandhu'@'localhost' (using password: NO) in /home/y44zm4vhop31/public_html/sqlmini.php on line 564
+[26-Apr-2022 19:47:21 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, bool given in /home/y44zm4vhop31/public_html/sqlmini.php on line 607
+[26-Apr-2022 19:47:51 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:47:51 UTC] PHP Warning:  A non-numeric value encountered in /home/y44zm4vhop31/public_html/sqlmini.php on line 98
+[26-Apr-2022 19:47:53 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:50:12 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:50:14 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:50:14 UTC] PHP Warning:  A non-numeric value encountered in /home/y44zm4vhop31/public_html/sqlmini.php on line 98
+[26-Apr-2022 19:54:52 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:55:01 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:57:58 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:58:16 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:58:16 UTC] PHP Warning:  A non-numeric value encountered in /home/y44zm4vhop31/public_html/sqlmini.php on line 98
+[26-Apr-2022 19:58:24 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:58:24 UTC] PHP Warning:  A non-numeric value encountered in /home/y44zm4vhop31/public_html/sqlmini.php on line 98
+[26-Apr-2022 19:58:26 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:58:31 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:58:37 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:58:56 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:58:59 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:59:37 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 19:59:37 UTC] PHP Warning:  A non-numeric value encountered in /home/y44zm4vhop31/public_html/sqlmini.php on line 98
+[26-Apr-2022 19:59:41 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 20:02:55 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 20:03:17 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 20:03:17 UTC] PHP Warning:  A non-numeric value encountered in /home/y44zm4vhop31/public_html/sqlmini.php on line 98
+[26-Apr-2022 20:13:57 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[26-Apr-2022 20:13:57 UTC] PHP Warning:  A non-numeric value encountered in /home/y44zm4vhop31/public_html/sqlmini.php on line 98
+[27-Apr-2022 00:21:23 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[27-Apr-2022 00:21:25 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
+[27-Apr-2022 00:21:40 UTC] PHP Deprecated:  Function get_magic_quotes_gpc() is deprecated in /home/y44zm4vhop31/public_html/sqlmini.php on line 49
