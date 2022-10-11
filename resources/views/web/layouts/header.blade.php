@@ -5,12 +5,12 @@
         <img src="{{asset('web/img/index_logo.jpg')}}" alt=""> </a> <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i> <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="{{route('categories',Crypt::encrypt(2))}}">Anchal</a></li>
+          <li><a href="{{route('categories',Crypt::encrypt(2))}}">Aanchal</a></li>
           <li><a href="{{route('categories',Crypt::encrypt(1))}}">Hijab</a></li>
           <li><a href="{{route('categories',Crypt::encrypt(7))}}">Naeyufaq</a></li>
           <li><a href="{{route('categories',Crypt::encrypt(8))}}">novel</a></li>
           <!-- <li><a href="{{--{{route('novel')}}--}}">novel</a></li> -->
-          <li><a href="{{ url('categories') }}/{{Crypt::encrypt(9)}}" class="active">Islamic book</a></li>
+          <li><a href="{{ url('categories/'.Crypt::encrypt(9)) }}" class="active">Islamic book</a></li>
           <li><a href="{{ url('blogs') }}">Blog</a></li>
 @php
   use App\Models\category;

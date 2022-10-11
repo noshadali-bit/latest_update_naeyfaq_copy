@@ -54,14 +54,14 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="section-header title-left">
-            <img src="{{asset('web/img/logo.png')}}">
-          <h2>Our Categories</h2>
+            <img src="{{asset('web/img/index_logo.jpg')}}" class="logo">
+          <h2>Categories</h2>
           </div>
             </div>
             <div class="col-md-6">
                 <div class="section-header title-right">
-            <img src="{{asset('web/img/logo.png')}}">
-          <h2>ہمارے زمرے</h2>
+            <img src="{{asset('web/img/index_logo.jpg')}}" class="logo">
+          <h2>شمارے</h2>
           </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
 
 
           <div class="col-lg-4 content my-auto">
-                <a href="javascript::void(0)"><img src="{{asset('web/img/logo.png')}}"></a>
+                <a href="javascript::void(0)"><img src="{{asset('web/img/index_logo.jpg')}}" class="logo"></a>
                 <h3>About Naeyufaq</h3>
                 <p>Alhamdulillah, after a hiatus of several months, the website of our organization has been renovated according to the modem requirements and has started working again. All material of Naey Ufaq, Anchal, and hijab (2007 to November 2021) has been uploaded.</p>
                 <p>Now Pakistani readers can also read our magazines on the internet for free. Especially Pakistani women and men living abroad were having difficulty in reading our magazines Naey Ufaq, Anchal, Hijab, now You can easily study them.</p> <a class="cta-btn" href="{{route('about_us')}}">REad More</a> </div>
@@ -97,8 +97,8 @@
 
           <div class="col-lg-4 content my-auto">
                 <div class="abt-right-blk">
-                    <a href="javascript::void(0)"><img src=""></a>
-                <h3>السلام علیکم و رحمتہ الل</h3>
+                    <a href="javascript::void(0)"><img src="{{asset('web/img/index_logo.jpg')}}" class="logo"></a>
+                <h3>السلام علیکم ورحمۃ اللہ</h3>
                 <p>الحمدللہ کئی ماہ کے تعطل کے بعدہمارے ادارے کی ویب سائٹ نے جدید تقاضوں کے مطابق تزئین و آرائش سے آراستہ ہو کر دوبارہ کام کرنا شروع کر دیا ہے۔اس پر نئے افق گروپ آف پبلی کیشنز کے تحت شائع ہو نے والے مؤقر جرائد ،نئے افق،آنچل ،حجاب کا تمام مواد(2007ء سے نومبر2021ء) تک</p>
                 <p>الحمدللہ کئی ماہ کے تعطل کے بعدہمارے ادارے کی ویب سائٹ نے جدید تقاضوں کے مطابق تزئین و آرائش سے آراستہ ہو کر دوبارہ کام کرنا شروع کر دیا ہے۔اس پر نئے افق گروپ آف پبلی کیشنز کے تحت شائع ہو نے والے مؤقر جرائد ،نئے افق،آنچل ،حجاب کا تمام مواد(2007ء سے نومبر2021ء) تک</p>
                 <a class="cta-btn" href="{{route('about_us')}}">REad More</a>

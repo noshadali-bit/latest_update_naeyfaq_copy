@@ -108,7 +108,7 @@ Route::group(['middleware' => 'admin_role'], function () {
 });
 
 Route::get('/purchased-product', [ReportController::class, 'purchased_product'])->name('purchased_product');
-
+Route::get('/user-profile', [CandidateController::class, 'userprofile'])->name('userprofile');
 
 Route::post('/select-category', [HomeController::class, 'select_category'])->name('select_category');
 Route::post('/select-year', [HomeController::class, 'select_year'])->name('select_year');

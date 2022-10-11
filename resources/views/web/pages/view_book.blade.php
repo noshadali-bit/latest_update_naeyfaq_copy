@@ -6,11 +6,14 @@
     <section id="about" class="about product-detail-page">
       <div class="container" data-aos="fade-up">
         <div class="row">
+            
+            @if($book->isNotEmpty())
             @foreach($book as $val)
             <div class="col-lg-4 content order-last my-auto">
               <div class="inner-space">
                 
-                <h3><b>{{$val->post_title}}</b>{{$val->post_title_urdu}}</h3>
+                <h3><b>{{$val->post_title}}</b></h3>
+                <h3>{{$val->post_title_urdu}}</h3>
                 <!-- <h3><b>Urdu Title</b></h3> -->
                 <p class="two"><b>Auther</b></p>
                 <p>{{$val->writer_name}}</p>
@@ -21,6 +24,15 @@
               </div>
             </div>
             @endforeach
+            @else
+            
+            <div class="col-lg-12 content order-last my-auto">
+              <div class="inner-space">
+                <h3 class="heading-no-book">Their is no book</h3>
+              </div>
+            </div>
+            
+            @endif
         </div>
       </div>
     </section>
@@ -31,7 +43,7 @@
       <div class="container">
         <!-- Slider main container -->
         <div class="novle-slider swiper">
-          <div class="product-title"> <img src="{{asset('web/img/logo.png')}}">
+          <div class="product-title"> <img src="{{asset('web/img/index_logo.jpg')}}" class="logo">
             <h3>Novel</h3> </div>
           <!-- Additional required wrapper -->
           <div class="swiper-wrapper novel-section">
@@ -59,6 +71,12 @@
 @section('css')
 
 <style type="text/css">
+    .heading-no-book{
+        font-size: 50px !important;
+        text-align: center !important;
+        color: #f48639 !important;        
+    }
+
 </style>
 
 @endsection

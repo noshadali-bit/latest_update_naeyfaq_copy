@@ -25,13 +25,14 @@
         </div>
         <div class="col-lg-3 col-md-12 footer-contact">
           <h4>Contact US</h4>
-          <p> Naeyufaq, Somewhere st.
-            <br> Somewhere 0000 Somewhere,
-            <br> 000000, LA.
-            <br> </p> <a href="mailto:support@demolink.com">support@demolink.com</a> <a href="tel:1234567890"><span>Tel.</span>123 456 7890</a> </div>
+          <p> <b>Address : </b>Shop No. 81 Nappier Barracks, Hockey Club of Pakistan Stadium, Near Aanchal Press, Karachi. <br> </p>
+          <!--<p> <b>Email : </b>info@naeyufaq.com <br> </p>-->
+          <!--<p> <b>Phone : </b>0300-8264242 <br> 0316-0128216 </p>-->
+          <a href="javascript:;">info@naeyufaq.com</a> <a href="tel:03160128216"><span>Tel.</span>0316-0128216</a> <a href="tel:03008264242"><span>Tel.</span>0300-8264242</a>
+        </div>
         <div class="col-lg-3 col-md-12 footer-info">
           <a href="index.html" class="logo d-flex"> <img src="{{asset('web/img/logo.png')}}" alt=""> </a>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel nisi sagittis leo venenatis tristique a quis metus. Etiam aliquet semper arcu at ornare.</p>
+          <p>We may send you Invitation, Introduction and Information about Our Events which will be Interesting for you for Joining Our Network.</p>
           <div class="social-links d-flex mt-2"> <a href="javascript:;" class="facebook"><i class="bi bi-facebook"></i></a> <a href="javascript:;" class="twitter"><i class="bi bi-twitter"></i></a> <a href="javascript:;" class="instagram"><i class="bi bi-google"></i></a> <a href="javascript:;" class="linkedin"><i class="bi bi-linkedin"></i></a> </div>
         </div>
       </div>
@@ -44,11 +45,11 @@
             <!-- Grid column -->
             <div class="col-md-6 col-lg-6 text-left text-md-left mb-4 mb-md-0">
               <ul class="list-unstyled d-flex">
-          <li class="ml-0"><a class="link-dark" href="javascript:;">Imprint</a></li>
-          <li class="ms-3"><a class="link-dark" href="javascript:;">Data protection</a></li>
-          <li class="ms-3"><a class="link-dark" href="javascript:;">Cookie Policy</a></li>
-          <li class="ms-3"><a class="link-dark" href="javascript:;">Sitemap</a></li>
-        </ul>
+                <li class="ml-0"><a class="link-dark" href="javascript:;">Imprint</a></li>
+                <li class="ms-3"><a class="link-dark" href="javascript:;">Data protection</a></li>
+                <li class="ms-3"><a class="link-dark" href="javascript:;">Cookie Policy</a></li>
+                <li class="ms-3"><a class="link-dark" href="javascript:;">Sitemap</a></li>
+              </ul>
             </div>
 
             <div class="col-md-6 col-lg-6 text-end text-md-right">

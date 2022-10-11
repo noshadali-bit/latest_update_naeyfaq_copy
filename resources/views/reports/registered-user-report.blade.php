@@ -266,7 +266,12 @@
 @endsection 
 
 @section('css') 
-<style type="text/css"></style>
+<style type="text/css">
+    
+    .table-responsive > #example_wrapper > .dt-buttons , .table-responsive > #example_wrapper > #example_filter {
+        display: none !important;
+    }
+</style>
 @endsection 
 @section('js') 
 <script type="text/javascript">
@@ -314,6 +319,7 @@
       $("#exampleModalgrid").modal('hide');
       $("#user_shift_modal").modal('show');
     })
+    
     $('#edit_designation').click(function(){
             @if($designation)
             var body = "<select name='designations' class='form-control input-sm'>";
@@ -326,6 +332,7 @@
             @endif
         $(this).closest("td").html(body);
     })
+    
     $('#edit_role_id').click(function(){
         @if($designation)
         var body = "<select name='role_id' class='form-control input-sm'>";
@@ -338,7 +345,6 @@
         @endif
         $(this).closest("td").html(body);
     })
-
 
     $('#edit_active').click(function(){
         var body = "<select name='status' class='form-control input-sm'>";
@@ -356,8 +362,6 @@
         var body = "<input type='text' class='form-control input-mini' name='phonenumber' placeholder='Required' style='padding-right: 24px;'>";
         $(this).closest("td").html(body);
     })
-
-    
 
     $('#edit_email').click(function(){
         var body = "<input type='email' class='form-control input-mini' name='email' placeholder='Required' style='padding-right: 24px;'>";

@@ -17,6 +17,10 @@
                 height: 500px !important;
                 object-fit: cover !important;
             }
+            img.logo{
+                max-height: 80px;
+                margin-right: 6px
+            }
             
         </style>
     </head>

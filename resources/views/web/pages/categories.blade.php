@@ -37,7 +37,7 @@
         $logo = $category[0]->logo;
         @endphp
         <div class="section-header"> <img src='{{asset("uploads/pages/$logo")}}' class="cat_logo">
-          <h2>Our Categories</h2> </div>
+          <h2>Categories</h2> </div>
         <div class="row">
           @if(isset($category))
           @foreach($category as $cat)

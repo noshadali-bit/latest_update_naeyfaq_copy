@@ -90,7 +90,6 @@ class HomeController extends Controller
     public function user_profile()
     {
         $user = Auth::user();
-
         if ($user->role_id == 1 || $user->role_id == 4) {
             return view('user-profile')->with('title', "Home Page")->with(compact('user'));
         }
@@ -229,7 +228,7 @@ class HomeController extends Controller
 
         return redirect()->back()->with('message', 'Information updated successfully');
     }
-
+    
     public function add_category(Request $request){
 
         if(isset($request->edit_id)){
@@ -377,7 +376,7 @@ class HomeController extends Controller
             return redirect()->route('manage_product');
         }
     }
-
+    
     public function update_book(Request $request)
     {
         $book = book::find($request->edit_id);
@@ -427,7 +426,7 @@ class HomeController extends Controller
 
                 $fileName = null;
                 $a = 0;
-
+                
                 foreach ($file as $value) {
                     $a++;
                     if (!empty($value)) {
@@ -531,7 +530,7 @@ class HomeController extends Controller
                 $path = 'public/uploads/products/' . $product->id;
                 $path2 = 'public/uploads/products/' . $product->id ."/";
                 $path3 = 'public/images/';
-
+                
                 if (public_path('uploads/products/' . $product->id)) {
                     File::deleteDirectory(public_path('uploads/products/' . $product->id));
                     $remove = product_file::where('product_id', $product->id)->delete();
@@ -601,7 +600,7 @@ class HomeController extends Controller
         }
         return redirect()->route('manage_product');
     }
-
+    
     public function readBook(Request $request){
         $product = product_file::where('product_id', $request->pro_id)->where('is_active', 1)->get();
         return $product;
@@ -888,7 +887,7 @@ class HomeController extends Controller
 
         return redirect()->route('manage_blog');
     }
-
+    
     public function active_comment(Request $request){
 
         $blog = blog_comment::find($request->id);
